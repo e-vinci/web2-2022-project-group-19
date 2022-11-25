@@ -12,4 +12,6 @@ router.get('/', (req, res) => {
   return res.json(characters);
 });
 
+// juste pour le add
+
 module.exports = router;
