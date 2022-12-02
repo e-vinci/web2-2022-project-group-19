@@ -84,10 +84,11 @@ async function onLogin(e) {
 
   if (!response.ok) {
     Swal.fire({
-      title: 'Error!',
-      text: "Nom d'utilisateur ou mot de passe incorrecte",
+      position: 'center',
       icon: 'error',
-      confirmButtonText: 'Revenir au login'
+      title: "Nom d'utilisateur ou mot de passe incorrecte",
+      showConfirmButton: false,
+      timer: 2000
     })
   }
 
