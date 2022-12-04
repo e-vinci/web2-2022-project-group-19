@@ -16,14 +16,15 @@ function readAllCharacters() {
 function readOneCharacter(id) {
   // const idAsNumber = id;
   const characters = parse(jsonDbPath);
-  console.log(characters);
-  const characterFound = characters.find(function(character){
-    return character.id === id;
-  })[0].foo;
-  if (!characterFound) return undefined;
-  console.log(characterFound);
+  return characters[id - 1];
+  // console.log(characters);
+  // const characterFound = characters.find(function(character){
+  //   return character.id === id;
+  // })[0].foo;
+  // if (!characterFound) return undefined;
+  // console.log(characterFound);
 
-  return characterFound;
+  // return characterFound;
 }
 
 module.exports = {

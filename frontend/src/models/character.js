@@ -18,10 +18,10 @@ const readAllCharacters = async () => {
 
 // call the function to recover one character from the api
 const readOneCharacter = async (id) => {
-   if (!id) return undefined;
-   console.log(id);
+  if (!id) return undefined;
+  console.log(id);
   try {
-    const response = await fetch(`/api/characters?id=${id}`);
+    const response = await fetch(`/api/characters/${id}`);
     if (!response.ok) {
       throw new Error(`readOneCharacter:: fetch error : ${response.status} : ${response.statusText}`);
     }
@@ -32,8 +32,8 @@ const readOneCharacter = async (id) => {
     // eslint-disable-next-line no-console
     console.error('readOneCharacter::error: ', err);
     throw err;
-    }
+  }
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export { readAllCharacters, readOneCharacter};
+export { readAllCharacters, readOneCharacter };
