@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const {
   readAllCharacters,
+  readOneCharacter,
   
 } = require('../models/character');
 
@@ -12,6 +13,17 @@ router.get('/', (req, res) => {
   return res.json(characters);
 });
 
-// juste pour le add
+// Read one character
+router.get('/:id',(req, res) => {
+  // eslint-disable-next-line no-console
+  console.log(`GET /characters/${req.params.id}`);
+
+  const foundCharacter = readOneCharacter(req.params.id);
+
+  if (!foundCharacter) return res.sendStatus(404).end();
+
+  return res.json(foundCharacter);
+});
+
 
 module.exports = router;

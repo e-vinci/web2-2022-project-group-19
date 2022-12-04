@@ -1,21 +1,29 @@
+/* eslint-disable func-names */
+/* eslint-disable prefer-arrow-callback */
 const path = require('node:path');
-const { parse, serialize } = require('../utils/json');
+const { parse } = require('../utils/json');
 
 const jsonDbPath = path.join(__dirname, '/../data/character.json');
 
+// read all characters
 function readAllCharacters() {
   const characters = parse(jsonDbPath);
 
   return characters;
 }
 
+// read one character
 function readOneCharacter(id) {
-  const idAsNumber = parseInt(id, 10);
+  // const idAsNumber = id;
   const characters = parse(jsonDbPath);
-  const indexOfCharacterFound = characters.findIndex((character) => character.id === idAsNumber);
-  if (indexOfCharacterFound < 0) return undefined;
+  console.log(characters);
+  const characterFound = characters.find(function(character){
+    return character.id === id;
+  })[0].foo;
+  if (!characterFound) return undefined;
+  console.log(characterFound);
 
-  return characters[indexOfCharacterFound];
+  return characterFound;
 }
 
 module.exports = {
