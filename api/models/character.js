@@ -18,7 +18,22 @@ function readOneCharacter(id) {
   return characters[indexOfCharacterFound];
 }
 
+function search(search) {
+  let charactersList = new Array();
+  let regex = `^.*${search}.*$`.toLowerCase();
+  let allCharactersList = parse(jsonDbPath);
+  allCharactersList.forEach((character) => {
+    if (
+      character.name.toLowerCase().match(regex)
+    ) {
+      charactersList.push(character);
+    }
+  });
+  return charactersList;
+}
+
 module.exports = {
   readAllCharacters,
   readOneCharacter,
+  search,
 };
