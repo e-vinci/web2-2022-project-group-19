@@ -62,12 +62,16 @@ function renderNavbar() {
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#" data-uri="/">Home</a>
-            </li>            
+            </li>           
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#" data-uri="/profile">Profile</a>
+          </li>   
+        
             <li class="nav-item">
               <a class="nav-link" href="#" data-uri="/logout">Logout</a>
             </li>    
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#" data-uri="/user">${authenticatedUser?.username}</a>
+              <a class="nav-link active" aria-current="page" href="#" >${authenticatedUser?.username}</a>
             </li>           
           </ul>
         </div>

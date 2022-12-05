@@ -3,6 +3,7 @@ import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
 import { readAllCharacters } from '../../models/character';
 
+
 const HomePage = async () => {
   clearPage();
   renderPageTitle('HomePage');
@@ -42,7 +43,7 @@ const HomePage = async () => {
     </li>
          
   `;
-    
+
   }
   table += `</ul>`;
   main.innerHTML = title + table;

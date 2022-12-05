@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const path = require('node:path');
+const bcrypt = require('bcrypt');
 const { parse, serialize } = require('../utils/json');
+
 
 const jwtSecret = 'ilovemypizza!';
 const lifetimeJwt = 24 * 60 * 60 * 1000; // in ms : 24 * 60 * 60 * 1000 = 24h
@@ -87,9 +89,62 @@ function getNextId() {
   return nextId;
 }
 
+
+/**
+ * Update a item in the DB and return the updated item
+ * @param {number} id - id of the item to be updated
+ * @param {object} body - it contains all the data to be updated
+ * @returns {object} the updated item or undefined if the update operation failed
+ */
+async function updateOne(username, body) {
+  const users = parse(jsonDbPath, defaultUsers);
+  const foundIndex = users.findIndex((item) => item.username == username);
+  if (foundIndex < 0) return;
+  const usernameExist = users.findIndex((item) => item.username == body.username);
+  if (usernameExist != -1) return;
+  // create a new object based on the existing item - prior to modification -
+  // and the properties requested to be updated (those in the body of the request)
+  // use of the spread operator to create a shallow copy and repl
+  const updateditem = { ...users[foundIndex], ...body };
+  // replace the item found at index : (or use splice)
+  console.log(users[foundIndex])
+  users[foundIndex] = updateditem;
+  serialize(jsonDbPath, users);
+
+  const objet = {
+    username: users[foundIndex].username,
+  }
+  return objet;
+}
+
+async function updatePassword(username, body) {
+  const users = parse(jsonDbPath, defaultUsers);
+  const foundIndex = users.findIndex((item) => item.username == username);
+  if (foundIndex < 0) return;
+  console.log("haha" + users[foundIndex].password);
+  // checked hash of passwords
+  const match = await bcrypt.compare(body.oldPassword, users[foundIndex].password);
+  // console.log("haha" + body.oldPassword + " " + body.nPassword);
+  //if (!match) return;
+  // const hashedPassword = await bcrypt.hash(body.nPassword, saltRounds);
+  const newItem = {
+    username: username,
+    password: body.nPassword,
+  }
+  users[foundIndex] = newItem;
+  serialize(jsonDbPath, users);
+  const objet = {
+    username: users[foundIndex].username,
+  }
+  return objet;
+
+}
+
 module.exports = {
   login,
   register,
   readOneUserFromUsername,
+  updateOne,
+  updatePassword,
 };
 
