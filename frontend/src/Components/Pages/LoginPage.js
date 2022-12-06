@@ -3,6 +3,8 @@ import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 
+const Swal = require('sweetalert2')
+
 const LoginPage = () => {
   clearPage();
   renderPageTitle('Login');
@@ -80,7 +82,15 @@ async function onLogin(e) {
 
   const response = await fetch(`${process.env.API_BASE_URL}/auths/login`, options);
 
-  if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+  if (!response.ok) {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: "Nom d'utilisateur ou mot de passe incorrecte",
+      showConfirmButton: false,
+      timer: 2000
+    })
+  }
 
   const authenticatedUser = await response.json();
 
