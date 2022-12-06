@@ -3,6 +3,8 @@ import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 
+const Swal = require('sweetalert2')
+
 const RegisterPage = () => {
   clearPage();
   renderPageTitle('Register');
@@ -79,7 +81,15 @@ async function onRegister(e) {
 
   const response = await fetch(`${process.env.API_BASE_URL}/auths/register`, options);
 
-  if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+  if (!response.ok) {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: "Vos données ont déjà été utilisée comme identifiant",
+      showConfirmButton: false,
+      timer: 2000
+    })
+  }
 
   const authenticatedUser = await response.json();
 
