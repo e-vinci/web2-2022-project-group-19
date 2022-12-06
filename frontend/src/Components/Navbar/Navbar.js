@@ -16,6 +16,7 @@ function renderNavbar() {
       <div class="container-fluid">
       <a class="nav-link active" aria-current="page" href="#" data-uri="/">${SITE_NAME}</a>
         <button
+
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
