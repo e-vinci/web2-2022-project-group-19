@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import { clearPage } from '../../utils/render';
+import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
 import { getSessionObject, removeSessionObject } from '../../utils/session';
 import { readOneCharacter } from '../../models/character';
@@ -22,13 +22,11 @@ const OneCharacterPage = async () => {
   console.log(character);
 
 
-  let displayCharacter = "";
-  displayCharacter += `
-<div class="container>
-<p> Affiche ça : ${character.name} </p>
-<p> ${character.images.md} </p>
-</div>
-`;
+  const displayCharacter = `
+  <img src="${character.images.md}"/>
+  <p><b>Character ID : ${idCharacter} </b></p>
+  <p><b>Character name : ${character.name} </b></p>
+  `;
 
 
 

@@ -111,11 +111,10 @@ const HomePage = async () => {
       // eslint-disable-next-line prefer-destructuring
       const id = buttonClicked?.dataset?.id;
       if (id) {
-
-      setSessionObject('id', id);
-
+        setSessionObject('id', id);
+        Navigate('/OneCharacterPage');
       }
-      Navigate('/OneCharacter');
+
     })
   }
   

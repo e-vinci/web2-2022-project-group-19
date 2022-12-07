@@ -4,6 +4,7 @@ const logger = require('morgan');
 
 const usersRouter = require('./routes/users');
 const charactersRouter = require('./routes/characters');
+const votesRouter = require('./routes/votes');
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(cookieParser());
 
 app.use('/users', usersRouter);
 app.use('/characters', charactersRouter);
+app.use('/votes',votesRouter);
 
 
 module.exports = app;

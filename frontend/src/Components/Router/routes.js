@@ -10,7 +10,7 @@ const routes = {
   '/login': LoginPage,
   '/register': RegisterPage,
   '/logout': Logout,
-  '/OneCharacter': OneCharacterPage,
+  '/OneCharacterPage': OneCharacterPage,
   '/addCharacter' : AddCharacterPage,
 };
 

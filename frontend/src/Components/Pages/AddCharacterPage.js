@@ -9,7 +9,7 @@ import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
 // eslint-disable-next-line import/no-cycle
 
-import Navigate from '../Router/Navigate';
+
 import  openai  from '../../utils/openAI';
 
 
