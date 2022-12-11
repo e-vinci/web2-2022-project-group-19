@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 const { join } = require('node:path');
 const path = require('node:path');
 const { escape } = require('node:querystring');
@@ -35,10 +36,23 @@ function alreadyVoted(data){
 
 }
 
+function getAverageVotes(idCharacter){
+    const db = parse(jsonDbPath);
+    const votes = db.filter((value) => value.idCharacter === idCharacter);
+    const nbDeVotes = votes.length;
+    if(nbDeVotes === 0) return "No one has voted for this character yet";
+    let totalVoteValue=0;
+    // eslint-disable-next-line no-plusplus
+    for(let i = 0; i < nbDeVotes; i++){
+        totalVoteValue += parseInt(votes[i].value);
+    }
+
+    return String(totalVoteValue/votes.length);
+}
 
 module.exports = {
     getAllVotes,
     vote,
     alreadyVoted,
-
+    getAverageVotes,
 }

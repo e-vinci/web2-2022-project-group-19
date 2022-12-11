@@ -59,5 +59,25 @@ const alreadyVoted = async (idcharacter, iduser) => {
 
 }
 
+const getAverageVotes = async (idCharacter) => {
+    
+    if(!idCharacter) return undefined;
+    try {
+
+        const response = await fetch(`/api/votes/getAverageVotes/${idCharacter}`);
+
+        if(!response.ok){
+            throw new Error(`getAverageVotes : fetch error : ${response.status} : ${response.statusText}`);
+        }
+        
+        const averageVotes = await response.json();
+        return averageVotes;
+
+    } catch (error) {
+        console.error('getAverageVotes::error', error);
+        throw error;
+    }   
+}
+
 // eslint-disable-next-line import/prefer-default-export
-export {submitVote,alreadyVoted};
+export {submitVote,alreadyVoted,getAverageVotes};

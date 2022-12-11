@@ -6,7 +6,7 @@ import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
 import { getSessionObject, removeSessionObject, setSessionObject } from '../../utils/session';
 import { readOneCharacter, readAllCharacters } from '../../models/character';
-import { alreadyVoted, submitVote } from '../../models/vote';
+import { alreadyVoted, getAverageVotes, submitVote } from '../../models/vote';
 import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
 
 
@@ -28,6 +28,14 @@ const OneCharacterPage = async () => {
   <p><b>Character ID : ${idCharacter} </b></p>
   <p><b>Character name : ${character.name} </b></p>
   `
+
+  const averageVotes = await getAverageVotes(idCharacter);
+  const characterEvaluation = `
+  <p>
+    <b>Average vote for this character: ${averageVotes}</b>
+  </p>
+  `;
+
   let voteForm = ``;
 
   let idUser;
@@ -68,7 +76,7 @@ const OneCharacterPage = async () => {
   }
 
 
-  main.innerHTML = displayCharacter + voteForm;
+  main.innerHTML = displayCharacter + characterEvaluation + voteForm;
 
   const button = document.querySelectorAll("#button");
 

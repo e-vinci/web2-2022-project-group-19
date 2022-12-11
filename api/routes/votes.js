@@ -5,6 +5,7 @@ const router = express.Router();
 const{
     vote,
     alreadyVoted,
+    getAverageVotes, 
 
 } = require('../models/vote');
 
@@ -20,6 +21,11 @@ router.post('/alreadyVoted', (req,res) =>{
 
     const bool = alreadyVoted(req.body);
     return res.json(bool);
-})
+});
+
+router.get('/getAverageVotes/:id', (req,res) =>{
+    const averageVotes = getAverageVotes(req.params.id);
+    return res.json(averageVotes);
+});
 
 module.exports = router;
