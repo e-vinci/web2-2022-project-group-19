@@ -100,8 +100,9 @@ const HomePage = async () => {
   table += `</ul>`;
   
   main.innerHTML = title +  table;
-  const button = document.querySelectorAll("#button");
 
+  const button = document.querySelectorAll("#button");
+  
   // manage the action of button
   // the loop is to apply addEventListenner on all buttons !
   for (const btn of button){
