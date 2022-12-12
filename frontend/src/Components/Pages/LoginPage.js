@@ -1,5 +1,6 @@
 import { getRememberMe, setAuthenticatedUser, setRememberMe } from '../../utils/auths';
 import { clearPage, renderPageTitle } from '../../utils/render';
+import { setSessionObject } from '../../utils/session';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 
@@ -96,6 +97,7 @@ async function onLogin(e) {
 
   console.log('Authenticated user : ', authenticatedUser);
 
+  setSessionObject("idUser", authenticatedUser.id);
   setAuthenticatedUser(authenticatedUser);
 
   Navbar();

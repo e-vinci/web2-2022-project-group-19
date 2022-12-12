@@ -27,6 +27,7 @@ function login(username, password) {
   );
 
   const authenticatedUser = {
+    id: userFound.id,
     username,
     token,
   };

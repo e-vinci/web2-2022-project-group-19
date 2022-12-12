@@ -37,8 +37,17 @@ function renderNavbar() {
             </li>
             <li id="registerItem" class="nav-item">
               <a class="nav-link" href="#" data-uri="/register">Register</a>
-            </li>            
+            </li>
+             <li id="additem" class="nav-item">
+              <a class="nav-link" href="#" data-uri="/addCharacter">Create a character</a>
+            </li>             
           </ul>
+           <form class="form-inline my-2 my-lg-0">
+              <input class="form-control" placeholder="Search" aria-label="Close" id = "search">
+                <button  type="button" class="btn-close" aria-label="Close" ></button>
+              </input>
+              <div id="searchname"> </div>
+            </form>
         </div>
       </div>
     </nav>
@@ -71,6 +80,12 @@ function renderNavbar() {
               <a class="nav-link active" aria-current="page" href="#" data-uri="/user">${authenticatedUser?.username}</a>
             </li>           
           </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control" placeholder="Search" aria-label="Close" id = "search">
+            
+            </input>
+            <div id="searchname"> </div>
+          </form>
         </div>
       </div>
     </nav>

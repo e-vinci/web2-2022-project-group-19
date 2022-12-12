@@ -11,4 +11,6 @@ const renderPageTitle = (title) => {
   main.appendChild(pageTitle);
 };
 
+
+
 export { clearPage, renderPageTitle };
