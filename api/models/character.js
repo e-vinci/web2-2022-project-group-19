@@ -16,7 +16,10 @@ function readAllCharacters() {
 function readOneCharacter(id) {
   // const idAsNumber = id;
   const characters = parse(jsonDbPath);
-  return characters[id - 1];
+  // eslint-disable-next-line radix
+  const character = characters.find((value) => value.id === parseInt(id));
+  console.log("Character= ", character);
+  return character;
   // console.log(characters);
   // const characterFound = characters.find(function(character){
   //   return character.id === id;
