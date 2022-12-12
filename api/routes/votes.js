@@ -23,6 +23,7 @@ router.post('/alreadyVoted', (req,res) =>{
     return res.json(bool);
 });
 
+// Get average votes for a character
 router.get('/getAverageVotes/:id', (req,res) =>{
     const averageVotes = getAverageVotes(req.params.id);
     return res.json(averageVotes);
