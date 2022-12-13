@@ -67,10 +67,10 @@ function renderNavbar() {
               <a class="nav-link active" aria-current="page" href="#" data-uri="/">Home</a>
             </li>                       
             <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#" data-uri="/profile">Profile</a>
+            <a class="nav-link active" aria-current="page" href="#" data-uri="/user"/profile">Profile</a>
           </li>   
         ${authenticatedUser?.username === "admin" ? `         <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#" data-uri="/membres">Membres</a>
+        <a class="nav-link active" aria-current="page" href="#" data-uri="/member">Membres</a>
       </li>     ` : `  `}
     
       <li class="nav-item">
@@ -80,7 +80,7 @@ function renderNavbar() {
               <a class="nav-link" href="#" data-uri="/logout">Logout</a>
             </li>    
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#" >${authenticatedUser?.username}</a>
+              <a class="nav-link active" aria-current="page" href="#" data-uri="/admin" >${authenticatedUser?.username}</a>
             </li>           
           </ul>
         </div>
