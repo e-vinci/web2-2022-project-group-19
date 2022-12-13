@@ -35,5 +35,8 @@ const readOneCharacter = async (id) => {
   }
 }
 
+
+
+
 // eslint-disable-next-line import/prefer-default-export
 export { readAllCharacters, readOneCharacter };

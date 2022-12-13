@@ -99,5 +99,10 @@ module.exports = {
       'process.env.API_BASE_URL': JSON.stringify(API_BASE_URL),
       'process.env.PATH_PREFIX': JSON.stringify(PATH_PREFIX),
     }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        API_KEY: JSON.stringify(process.env.KEY_API_DALLE2),
+      },
+    }),
   ],
 };

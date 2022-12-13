@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable prefer-const */
 /* eslint-disable vars-on-top */
 /* eslint-disable no-var */
@@ -7,13 +8,9 @@
 /* eslint-disable no-plusplus */
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
-// eslint-disable-next-line import/no-cycle
-
+import openai from '../../models/openai';
 import Navigate from '../Router/Navigate';
-import  openai  from '../../utils/openAI';
-
-
-
+// eslint-disable-next-line import/no-cycle
 
 const addCharacter = async () => {
   clearPage();
@@ -29,8 +26,8 @@ const addCharacter = async () => {
     'you can generate images by entering short description of the image, add at the end of your description photo-realistic';
   main.appendChild(instructions);
 
- 
-  const form = `
+  // form generate image 
+  const formImage = `
   <div class="flex flex-row justify-center">
     <input type="text" id="text" class="form-control" placeholder="A super heros flying…" />
     <button type="button" id="btn" class="btn btn-dark" >
@@ -38,26 +35,26 @@ const addCharacter = async () => {
     </button>
   </div>`;
 
-  main.innerHTML += form; 
+  main.innerHTML += formImage; 
   const btn = document.querySelector('#btn');
   const text = document.getElementById('text');
 
   // generate image
   btn.addEventListener('click', async() => {
+
     const response = await openai.createImage({
-      prompt: text.value,
-      n: 5,
-      size: '1024x1024',
+      prompt: text,
+      n: 3,
+      size: '500x500',
     });
-
-    console.log(response);
-
+    
+    
     const img1 = document.createElement('img');
     img1.className = 'image';
-    img1.src = response.data.data[0].url;
+    img1.src = response.data[0].url;
     img1.width = 500;
     img1.height = 500;
-
+    
     const img2 = document.createElement('img');
     img2.className = 'image';
     img2.src = response.data.data[1].url;
@@ -73,7 +70,7 @@ const addCharacter = async () => {
     main.appendChild(img1);
     main.appendChild(img2);
     main.appendChild(img3);
-
+    /*
     const btnRefreshHtml = `
     <button type="button" id="btn2" class="btn btn-dark">
        Refresh
@@ -86,12 +83,133 @@ const addCharacter = async () => {
       img2.parentNode.removeChild(img2);
       img3.parentNode.removeChild(img3);
     });
+    */
+    
   });
-  
 
- 
-
+  const stringForm = `
+  <div class="text-center">
+    <h3>Add a character</h3>
+    <form class="px-5">
+      <div class="mb-3">
+        <label for="<name">name</label>
+        <input type="text" name="name"id="name"class="form-control" placeholder="Enter name"/>
+      </div>
+      <div> <h4> powerstats </h4> <br> </div>
+      <div class="mb-3">
+        <label for="intelligence" class="form-label">intelligence</label>
+        <input type="number"  name="intelligence" id="intelligence" class="form-control" placeholder="points of intelligence out of 100 "/>
+      </div>
+      <div class="mb-3">
+        <label for="strength" class="form-label"> strength </label>
+        <input type="number" name="strength" id="strength" class="form-control" placeholder="points of strength out of 100"/>
+      </div>
+      <div class="mb-3">
+        <label for="speed" class="form-label">speed</label>
+        <input type="number" name="speed" id="speed" class="form-control" placeholder="points of speed out of 100"/>
+      </div>
+      <div class="mb-3">
+        <label for="durability" class="form-label">durability</label>
+        <input type="number" name="durability" id="durability" class="form-control" placeholder="points of durability out of 100"/>
+      </div>
+      <div class="mb-3">
+        <label for="power" class="form-label">power</label>
+        <input type="number" name="power" id="power" class="form-control" placeholder="points of power out of 100"/>
+      </div>
+      <div class="mb-3">
+        <label for="combat" class="form-label"> combat</label>
+        <input type="number" name="combat" id="combat" class="form-control" placeholder="points of combat out of 100"/>
+      </div>
+      <br>
+      <div> <h4> Appearance </h4> <br> </div>
+      <div class="mb-6">
+        <label for="genre" > Genre </label>
+        <select class="form-select aria-label="select" >
+          <option selected> Genre </option>
+          <option value="m"> Male </option>
+          <option value="f"> Female </option>
+          <option value = "h"> hermaphrodite </option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="race" class="form-label">race</label>
+      <input type="text" name="race" id="race" class="form-control" placeholder="Enter the race "/>
+      </div>
+      <div class="mb-3">
+        <label for="height" class="form-label">height</label>
+        <input type="number" name="height" id="height" class="form-control" placeholder="Enter the height in cm" />
+      </div>
+      <div class="mb-3">
+        <label for="weight" class="form-label">weight</label>
+        <input type="number" name="weight" id="weight" class="form-control" placeholder="Enter the weight in cm" />
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">image</label>
+        <input type="file" name="image" id="image" accept="image/*" class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-primary" id="btn1">Submit</button>
+    </form>
+  </div>`;
   
+  
+  main.innerHTML += stringForm;
+  
+  const getForm = document.querySelector('form');
+  const select = document.querySelector('select');
+  const name = document.getElementById('name').value;
+  const intelligence = document.getElementById('intelligence').value;
+  const strength = document.getElementById('strength').value;
+  const speed = document.getElementById('speed').value;
+  const durability = document.getElementById('durability').value;
+  const power = document.getElementById('power').value;
+  const combat = document.getElementById('combat').value;
+  const genre = select.value;
+  const race = document.getElementById('race').value;
+  const height = document.getElementById('height').value;
+  const  weight = document.getElementById('weight').value;
+  const image = document.getElementById('image').files[0];
+  
+  getForm.addEventListener('submit', async(event) => {
+    event.preventDefault();
+    try {
+      const options = {
+        method: "POST",
+        body: JSON.stringify({
+          name: name.value,
+          intelligence: intelligence.value,
+          strength: strength.value,
+          speed: speed.value,
+          durability: durability.value,
+          power: power.value,
+          combat: combat.value,
+          genre: genre.value,
+          race: race.value,
+          height: height.value,
+          weight: weight.value,
+          lg: image.value
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          
+        },
+      };
+      const response = await fetch("/api/addCharacter", options);
+        if (!response.ok) {
+          throw new Error(
+            `fetch error : ${  response.status  } : ${  response.statusText}`
+          );
+        }
+    } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error("addCharacter::error: ", error);
+      }
+
+    Navigate('/addCharacter');
+    
+    
+  });
+
+    
 };
 
 export default addCharacter;
