@@ -70,7 +70,7 @@ function renderNavbar() {
             <a class="nav-link active" aria-current="page" href="#" data-uri="/user"/profile">Profile</a>
           </li>   
         ${authenticatedUser?.username === "admin" ? `         <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#" data-uri="/member">Membres</a>
+        <a class="nav-link active" aria-current="page" href="#" data-uri="/member">Members</a>
       </li>     ` : `  `}
     
       <li class="nav-item">
