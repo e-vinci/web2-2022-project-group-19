@@ -7,9 +7,12 @@ const jsonDbPath = path.join(__dirname, '/../data/comment.json');
 // Post a comment
 function postComment(data){
     const comments = parse(jsonDbPath);
+    const reply = [];
     const newComment = {
         id: getNextId(),
         content: (data.comment),
+        replies: reply,
+        likes: 0, 
         idCharacter: data.idCharacter,
         idUser: data.idUser,
     };
@@ -27,14 +30,25 @@ function getComments(idCharacter){
     // eslint-disable-next-line no-plusplus
     for(let i = 0; i < comments.length; i++){
         const commentAndUsername = {
+            idComment: comments[i].id,
             comment: comments[i].content,
+            likes: comments[i].likes,
             user: readOneUserFromID(comments[i].idUser),
         }
         arrayComments.push(commentAndUsername);
     }
     return arrayComments;
 }
-
+// To like a comment
+function likeAComment(idComment){
+    const comments = parse(jsonDbPath);
+    // eslint-disable-next-line radix
+    const comment= comments.find((value) => value.id === parseInt(idComment));
+    comment.likes += 1;
+    console.log("Likes: ", comment.likes);
+    serialize(jsonDbPath,comments)
+    return comment.likes;
+}
 
 function getNextId(){
     const comments = parse(jsonDbPath);
@@ -46,4 +60,4 @@ function getNextId(){
 }
 
 
-module.exports = {postComment,getComments};
+module.exports = {postComment,getComments, likeAComment};

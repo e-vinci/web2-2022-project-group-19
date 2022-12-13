@@ -49,6 +49,25 @@ const getComments = async (idCharacter)=>{
     }  
 }
 
+const likeAComment = async (idComment) => {
+    if(!idComment) return undefined;
+    try {
+
+        const response = await fetch(`/api/comments/likeAComment/${idComment}`);
+
+        if(!response.ok){
+            throw new Error(`likeAComment : fetch error : ${response.status} : ${response.statusText}`);
+        }
+        
+        const comments = await response.json();
+        return comments;
+
+    } catch (error) {
+        console.error('likeAComment::error', error);
+        throw error;
+    }  
+}
+
 
 // eslint-disable-next-line import/prefer-default-export
-export {postComment,getComments};
+export {postComment,getComments, likeAComment};

@@ -8,7 +8,7 @@ import { getSessionObject, removeSessionObject, setSessionObject } from '../../u
 import { readOneCharacter, readAllCharacters } from '../../models/character';
 import { alreadyVoted, getAverageVotes, submitVote } from '../../models/vote';
 import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
-import { getComments, postComment } from '../../models/comment';
+import { getComments, likeAComment, postComment } from '../../models/comment';
 
 
 const OneCharacterPage = async () => {
@@ -44,7 +44,10 @@ const OneCharacterPage = async () => {
       comments+=`
       <p>
         <b>${arrayComments[i].user} : </b>
-        <a>${arrayComments[i].comment}</a>
+        <b>${arrayComments[i].idComment} : </b>
+        <a>${arrayComments[i].comment}</a>  
+        <button id="likeACommentButton" class="btn btn-primary" data-value="${arrayComments[i].idComment}">Like</button>
+        <a>Likes: ${arrayComments[i].likes}</a>
       </p>
       `
     }
@@ -133,13 +136,28 @@ const OneCharacterPage = async () => {
 
   const commentButton = document.querySelector("#commentButton");
 
-  commentButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    const comment = document.getElementById("commentForm");
-    const commentSubmited = postComment(idCharacter,idUser,comment.value);
-  })
+  if(commentButton){
+    commentButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      const comment = document.getElementById("commentForm");
+      postComment(idCharacter,idUser,comment.value);
+    })
+  }
+  const likeACommentButton = document.querySelectorAll("#likeACommentButton");
 
-  
+  for(let i = 0; i<likeACommentButton.length; i++){
+    const btn = likeACommentButton[i];
+    btn.addEventListener('click', (e)=> {
+      e.preventDefault();
+      const buttonClicked = e.target;
+      const idComment = buttonClicked.dataset.value;
+      console.log("Id comment :", idComment);
+      if(idComment){
+        console.log("Inside like");
+        likeAComment(idComment);
+      }
+    })
+  }
 
 };
 

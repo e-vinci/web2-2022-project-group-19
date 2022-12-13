@@ -1,1 +1,1 @@
-[{"id":1,"content":"I like this character","idCharacter":"1","idUser":2},{"id":2,"content":"He is really good","idCharacter":"1","idUser":2},{"id":3,"content":"I don't like this character","idCharacter":"1","idUser":1},{"id":4,"content":"@Test1 I disagree","idCharacter":"1","idUser":1}]
+[{"id":1,"content":"This is cool\n","replies":[],"likes":2,"idCharacter":"1","idUser":2}]
