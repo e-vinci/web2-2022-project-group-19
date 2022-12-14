@@ -24,23 +24,18 @@ const OneCharacterPage = async () => {
 
   let displayCharacter = "";
   displayCharacter += `
-    <div class="hero-body">
+    <div class="column is-5 is-centered">
             <div class="container has-text-centered">
                 <div class="columns is-vcentered">
-                    <div class="column is-5">
-                     <h1 class="title is-2">
-                           ${character.name}
-                        </h1>
-                        <figure class="image is-4by3 align="center">
-                            <img src="${character.images.lg}" alt="characterImage">
-                        </figure>
-                    </div>
+                    <h1 class="title is-2">
+                        ${character.name}
+                    </h1>
+                    <figure class="image is-4by3 align="center">
+                        <img src="${character.images.lg}" alt="characterImage">
+                    </figure>
                     <div class="column is-6 is-offset-1">
-                        
                         <br>
-                        <p class="has-text-centered">
-                            
-                        </p>
+                        <p class="has-text-centered"> </p>
                     </div>
                 </div>
             </div>

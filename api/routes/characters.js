@@ -45,7 +45,7 @@ router.post('/addCharacter', (req, res) => {
     (req.body.hasOwnProperty('height') && req.body. height.length === 0) ||
     (req.body.hasOwnProperty('weight') && req.body. weight.length === 0) 
    
-  )
+  ) return res.status(400).end();
     
   fs.writeFile('/path/to/image.jpg', image, (err) => {
     if (err) {
@@ -57,11 +57,10 @@ router.post('/addCharacter', (req, res) => {
     }
   });
 
-  return res.status(400).end();
-
   const jeu = addOneCharacter(req.body);
 
   return res.json(jeu);
+  
 });
 
 
