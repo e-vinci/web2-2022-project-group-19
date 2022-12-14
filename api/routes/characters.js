@@ -1,6 +1,9 @@
 const express = require('express');
+
 const fs = require('fs');
+
 const formidable = require('formidable');
+
 const router = express.Router();
 const {
   readAllCharacters,
@@ -64,7 +67,7 @@ router.post('/addCharacter', (req, res) => {
   //     res.send('Image uploaded successfully');
   //   }
   // });
-  
+
   const jeu = addOneCharacter(req.body);
 
   return res.json(jeu);
