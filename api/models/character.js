@@ -3,10 +3,11 @@
 /* eslint-disable prefer-arrow-callback */
 const path = require('node:path');
 const escape = require('escape-html');
-const { parse,serialize } = require('../utils/json');
+const { parse, serialize } = require('../utils/json');
 
 
 const jsonDbPath = path.join(__dirname, '/../data/character.json');
+
 
 // id
 function getNextId() {
@@ -19,7 +20,7 @@ function getNextId() {
 
 // read all characters
 function readAllCharacters() {
- 
+
   const characters = parse(jsonDbPath);
 
   return characters;
@@ -35,32 +36,35 @@ function readOneCharacter(id) {
   console.log("character = ", character);
 
   return character;
- 
+
 }
 
 // add one character
-function addOneCharacter(body){
+function addOneCharacter(body) {
   const characters = parse(jsonDbPath);
 
   const newCharacter = {
     id: getNextId(),
-    name : escape(body.name),
+    name: escape(body.name),
     intelligence: escape(body.intelligence),
-    strength: escape(body.strnegth),
+    strength: escape(body.strength),
     speed: escape(body.speed),
-    durability: escape(body.speed),
+    durability: escape(body.durability),
     power: escape(body.power),
     combat: escape(body.combat),
     genre: escape(body.genre),
     race: escape(body.race),
-    height: escape(body.heigh),
+    height: escape(body.height),
     weight: escape(body.weight),
     lg: escape(body.image)
-    
+
   };
-   characters.push(newCharacter);
-   serialize(this.jsonDbPath, characters);
-   return newCharacter;
+
+  characters.push(newCharacter);
+
+  serialize(jsonDbPath, characters);
+
+  return newCharacter;
 
 }
 
@@ -68,6 +72,6 @@ module.exports = {
   readAllCharacters,
   readOneCharacter,
   addOneCharacter
-  
-  
+
+
 };

@@ -35,26 +35,26 @@ const addCharacter = async () => {
     </button>
   </div>`;
 
-  main.innerHTML += formImage; 
+  main.innerHTML += formImage;
   const btn = document.querySelector('#btn');
   const text = document.getElementById('text');
 
   // generate image
-  btn.addEventListener('click', async() => {
+  btn.addEventListener('click', async () => {
 
     const response = await openai.createImage({
       prompt: text,
       n: 3,
       size: '500x500',
     });
-    
-    
+
+
     const img1 = document.createElement('img');
     img1.className = 'image';
     img1.src = response.data[0].url;
     img1.width = 500;
     img1.height = 500;
-    
+
     const img2 = document.createElement('img');
     img2.className = 'image';
     img2.src = response.data.data[1].url;
@@ -84,13 +84,13 @@ const addCharacter = async () => {
       img3.parentNode.removeChild(img3);
     });
     */
-    
+
   });
 
   const stringForm = `
   <div class="text-center">
     <h3>Add a character</h3>
-    <form class="px-5">
+    <form class="px-5" id="form">
       <div class="mb-3">
         <label for="<name">name</label>
         <input type="text" name="name"id="name"class="form-control" placeholder="Enter name"/>
@@ -150,26 +150,30 @@ const addCharacter = async () => {
       <button type="submit" class="btn btn-primary" id="btn1">Submit</button>
     </form>
   </div>`;
-  
-  
+
+
   main.innerHTML += stringForm;
-  
-  const getForm = document.querySelector('form');
+
+  const getForm = document.querySelector('#form');
   const select = document.querySelector('select');
-  const name = document.getElementById('name').value;
-  const intelligence = document.getElementById('intelligence').value;
-  const strength = document.getElementById('strength').value;
-  const speed = document.getElementById('speed').value;
-  const durability = document.getElementById('durability').value;
-  const power = document.getElementById('power').value;
-  const combat = document.getElementById('combat').value;
-  const genre = select.value;
-  const race = document.getElementById('race').value;
-  const height = document.getElementById('height').value;
-  const  weight = document.getElementById('weight').value;
-  const image = document.getElementById('image').files[0];
-  
-  getForm.addEventListener('submit', async(event) => {
+  const name = document.getElementById('name');
+  const intelligence = document.getElementById('intelligence');
+  const strength = document.getElementById('strength');
+  const speed = document.getElementById('speed');
+  const durability = document.getElementById('durability');
+  const power = document.getElementById('power');
+  const combat = document.getElementById('combat');
+  const genre = select;
+  const race = document.getElementById('race');
+  const height = document.getElementById('height');
+  const weight = document.getElementById('weight');
+  const image = document.getElementById('image');
+
+  getForm.addEventListener('submit', async (event) => {
+    // let data = new FormData(getForm);
+    // console.log(data.get("image"));
+    // console.log(image.files[0]);
+
     event.preventDefault();
     try {
       const options = {
@@ -186,30 +190,29 @@ const addCharacter = async () => {
           race: race.value,
           height: height.value,
           weight: weight.value,
-          lg: image.value
+          image: image.files[0]
+
         }),
         headers: {
           "Content-Type": "application/json",
-          
+
         },
       };
-      const response = await fetch("/api/addCharacter", options);
-        if (!response.ok) {
-          throw new Error(
-            `fetch error : ${  response.status  } : ${  response.statusText}`
-          );
-        }
-    } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error("addCharacter::error: ", error);
+      const response = await fetch(`${process.env.API_BASE_URL}/characters/addCharacter`, options);
+      if (!response.ok) {
+        throw new Error(
+          `fetch error : ${response.status} : ${response.statusText}`
+        );
       }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("addCharacter::error: ", error);
+    }
 
     Navigate('/addCharacter');
-    
-    
   });
 
-    
+
 };
 
 export default addCharacter;
