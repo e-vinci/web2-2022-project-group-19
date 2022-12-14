@@ -1,5 +1,5 @@
 import { clearPage } from '../../utils/render';
-import { getAllUsers, deleteOneUser } from '../../models/users.js'
+import { getAllUsers, deleteOneUser } from '../../models/users';
 import Navbar from '../Navbar/Navbar';
 
 const AdminPage = () => {
