@@ -87,9 +87,46 @@ function getNextId() {
   return nextId;
 }
 
+function getAllUsers() {
+  const users = parse(jsonDbPath);
+
+  return users;
+}
+
+async function deleteOneUser(usernameToDelete){
+
+  const users = parse(jsonDbPath, defaultUsers);
+  
+  // find the user id
+  const indexOfUserToDeleteFound = users.findIndex((user) => user.usernameToDelete === usernameToDelete);
+
+  // verify that the user exist
+  if (indexOfUserToDeleteFound < 0) return undefined;
+
+  // verify if user is admin : if yes, we can't delete him (send error message, not undefined) TODO/TOVERIFY
+  if (checkIfAdmin(usernameToDelete) === true) return undefined;
+
+  return delete users[indexOfUserToDeleteFound];
+}
+
+async function checkIfAdmin(username){
+
+  const users = parse(jsonDbPath, defaultUsers);
+  
+  const indexOfUserCheckIfAdmin = users.findIndex((user) => user.username === username);
+
+  return users[indexOfUserCheckIfAdmin].isAdmin;
+  
+}
+
+
 module.exports = {
   login,
   register,
   readOneUserFromUsername,
+  createOneUser,
+  getNextId,
+  getAllUsers,
+  deleteOneUser,
 };
 
