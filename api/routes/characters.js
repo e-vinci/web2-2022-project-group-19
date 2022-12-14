@@ -1,6 +1,5 @@
 const express = require('express');
 const fs = require('fs');
-const formidable = require('formidable');
 const router = express.Router();
 const {
   readAllCharacters,
@@ -28,12 +27,8 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/addCharacter', (req, res) => {
-  const form = formidable({ multiples: true });
-  form.parse(req, (err, fields, files) => {
-    console.log('fields: ', fields);
-    console.log('files: ', files);
-    res.send({ success: true });
-  });
+
+
 
   // eslint-disable-next-line no-console
   console.log('POST /characters');
