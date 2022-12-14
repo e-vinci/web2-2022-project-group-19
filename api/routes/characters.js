@@ -1,13 +1,14 @@
 const express = require('express');
 const fs = require('fs');
-
+const formidable = require('formidable');
 const router = express.Router();
 const {
   readAllCharacters,
   readOneCharacter,
   addOneCharacter,
-  
+
 } = require('../models/character');
+const { json } = require('express');
 
 // Read all the characters 
 router.get('/', (req, res) => {
@@ -28,9 +29,16 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/addCharacter', (req, res) => {
+  const form = formidable({ multiples: true });
+  form.parse(req, (err, fields, files) => {
+    console.log('fields: ', fields);
+    console.log('files: ', files);
+    res.send({ success: true });
+  });
+
   // eslint-disable-next-line no-console
   console.log('POST /characters');
-  const image = req.body.lg;
+
   if (
     !req.body ||
     (req.body.hasOwnProperty('name') && req.body.name === 0) ||
@@ -42,21 +50,21 @@ router.post('/addCharacter', (req, res) => {
     (req.body.hasOwnProperty('combat') && req.body.combat.length === 0) ||
     (req.body.hasOwnProperty('genre') && req.body.genre.length === 0) ||
     (req.body.hasOwnProperty('race') && req.body.race.length === 0) ||
-    (req.body.hasOwnProperty('height') && req.body. height.length === 0) ||
-    (req.body.hasOwnProperty('weight') && req.body. weight.length === 0) 
-   
-  ) return res.status(400).end();
-    
-  fs.writeFile('/path/to/image.jpg', image, (err) => {
-    if (err) {
-      // eslint-disable-next-line no-console
-      console.log(err);
-    } else {
-     
-      res.send('Image uploaded successfully');
-    }
-  });
+    (req.body.hasOwnProperty('height') && req.body.height.length === 0) ||
+    (req.body.hasOwnProperty('weight') && req.body.weight.length === 0)
 
+  )  return res.status(400).end();
+
+  // fs.writeFile('/path/to/image.jpg', image, (err) => {
+  //   if (err) {
+  //     // eslint-disable-next-line no-console
+  //     console.log(err);
+  //   } else {
+
+  //     res.send('Image uploaded successfully');
+  //   }
+  // });
+  
   const jeu = addOneCharacter(req.body);
 
   return res.json(jeu);

@@ -22,7 +22,7 @@ app.use('/users', usersRouter);
 app.use('/characters', charactersRouter);
 app.get('/api-key', (req, res) => {
 
-    res.json({key: API_KEY});
+    res.json({ key: API_KEY });
 });
 
 
