@@ -5,6 +5,7 @@ const {
   readAllCharacters,
   readOneCharacter,
   filterCharactersByVotes,
+  filterChararactersByComments,
 
 } = require('../models/character');
 
@@ -26,10 +27,17 @@ router.get('/:id', (req, res) => {
   return res.json(foundCharacter);
 });
 
-router.get('/filterChararacters/votes', (req,res) => {
+router.get('/filterCharacters/votes', (req,res) => {
   const characters = filterCharactersByVotes();
   return res.json(characters);
 })
+
+router.get('/filterCharacters/comments', (req,res) =>{
+  console.log("Before");
+  const characters = filterChararactersByComments();
+  console.log("After");
+  return res.json(characters);
+} )
 
 
 module.exports = router;

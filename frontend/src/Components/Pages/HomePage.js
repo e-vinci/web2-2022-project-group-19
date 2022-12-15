@@ -5,7 +5,7 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
 // eslint-disable-next-line import/no-cycle
-import { filterCharactersByVotes, readAllCharacters} from '../../models/character';
+import { filterCharactersByVotes, filterChararactersByComments, readAllCharacters} from '../../models/character';
 import { setSessionObject } from '../../utils/session';
 import Navigate from '../Router/Navigate';
 // import { getAverageVotes } from '../../models/vote';
@@ -33,6 +33,7 @@ const HomePage = async () => {
     console.log("Filter: like");
   }
   else if(localStorage.getItem(STORE_NAME,currentFilter) === "comment"){
+    characters = await filterChararactersByComments();
     console.log("Filter: comment");
   }
   else{
@@ -51,9 +52,9 @@ const HomePage = async () => {
     Filter
   </button>
   <ul class="dropdown-menu">
-    <li><a class="dropdown-item" data-value="default">Default</a></li>
-    <li><a class="dropdown-item" data-value="like">Most Liked</a></li>
-    <li><a class="dropdown-item" data-value="comment">Most Commented</a></li>
+    <li><option class="dropdown-item" data-value="default">Default</option></li>
+    <li><option class="dropdown-item" data-value="like">Most Liked</option></li>
+    <li><option class="dropdown-item" data-value="comment">Most Commented</option></li>
   </ul>
 </div>
   `;
@@ -167,10 +168,18 @@ const HomePage = async () => {
         if(value === "like"){
           currentFilter = "like";
           localStorage.setItem(STORE_NAME,currentFilter);
+          // à modifier
           location.reload();
-        }else if(value === "default"){
+        }else if(value === "comment"){
+          currentFilter = "comment";
+          localStorage.setItem(STORE_NAME,currentFilter);
+          // à modifier
+          location.reload();
+        }
+        else{
           currentFilter = "default";
           localStorage.setItem(STORE_NAME,currentFilter);
+          // à modifier
           location.reload();
         }
       }

@@ -146,6 +146,8 @@ const OneCharacterPage = async () => {
       e.preventDefault();
       const comment = document.getElementById("commentForm");
       postComment(idCharacter,idUser,comment.value);
+      // eslint-disable-next-line no-restricted-globals
+      location.reload();
     })
   }
   const likeACommentButton = document.querySelectorAll("#likeACommentButton");

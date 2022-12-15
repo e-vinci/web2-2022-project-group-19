@@ -37,7 +37,7 @@ const readOneCharacter = async (id) => {
 
 const filterCharactersByVotes = async () => {
   try {
-    const response = await fetch('/api/characters/filterChararacters/votes');
+    const response = await fetch('/api/characters/filterCharacters/votes');
 
     console.log("Before");
 
@@ -46,8 +46,7 @@ const filterCharactersByVotes = async () => {
     }
 
     const characters = await response.json();
-    console.log("Characters: ", characters);
-    console.log("after");
+
     return characters;
   } catch (err) {
     // eslint-disable-next-line no-console
@@ -56,5 +55,24 @@ const filterCharactersByVotes = async () => {
   }
 }
 
+const filterChararactersByComments = async () => {
+  try {
+    console.log("Before");
+    const response = await fetch('/api/characters/filterCharacters/comments');
+
+    console.log("After");
+
+    if (!response.ok) {
+      throw new Error(`filterCharactersByComments:: fetch error : ${response.status} : ${response.statusText}`);
+    }
+
+    const characters = await response.json();
+    return characters;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('filterCharactersByComments::error: ', err);
+    throw err;
+  }
+}
 // eslint-disable-next-line import/prefer-default-export
-export { readAllCharacters, readOneCharacter, filterCharactersByVotes };
+export { readAllCharacters, readOneCharacter, filterCharactersByVotes, filterChararactersByComments };
