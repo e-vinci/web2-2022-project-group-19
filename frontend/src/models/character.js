@@ -28,12 +28,33 @@ const readOneCharacter = async (id) => {
     const character = await response.json();
     console.log(character);
     return character;
-  } catch (err) {
+  } catch (err){
     // eslint-disable-next-line no-console
     console.error('readOneCharacter::error: ', err);
     throw err;
   }
 }
 
+const filterCharactersByVotes = async () => {
+  try {
+    const response = await fetch('/api/characters/filterChararacters/votes');
+
+    console.log("Before");
+
+    if (!response.ok) {
+      throw new Error(`filterCharactersByVotes:: fetch error : ${response.status} : ${response.statusText}`);
+    }
+
+    const characters = await response.json();
+    console.log("Characters: ", characters);
+    console.log("after");
+    return characters;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('filterCharactersByVotes::error: ', err);
+    throw err;
+  }
+}
+
 // eslint-disable-next-line import/prefer-default-export
-export { readAllCharacters, readOneCharacter };
+export { readAllCharacters, readOneCharacter, filterCharactersByVotes };

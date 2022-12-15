@@ -2,6 +2,7 @@
 /* eslint-disable prefer-arrow-callback */
 const path = require('node:path');
 const { parse } = require('../utils/json');
+const { getAverageVotes } = require('./vote');
 
 const jsonDbPath = path.join(__dirname, '/../data/character.json');
 
@@ -30,7 +31,20 @@ function readOneCharacter(id) {
   // return characterFound;
 }
 
+function filterCharactersByVotes(){
+  const characters = parse(jsonDbPath);
+  characters.sort(function (a,b) {
+    const A = String(a.id);
+    const B = String(b.id);
+    const ratio = getAverageVotes(B) - getAverageVotes(A);
+    return ratio;
+  });
+
+  return characters;
+}
+
 module.exports = {
   readAllCharacters,
   readOneCharacter,
+  filterCharactersByVotes,
 };

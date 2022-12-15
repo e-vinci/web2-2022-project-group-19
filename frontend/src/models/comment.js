@@ -68,6 +68,25 @@ const likeAComment = async (idComment) => {
     }  
 }
 
+const filterCommentsByLikes = async (idCharacter) =>{
+    if(!idCharacter) return undefined;
+    try {
+
+        const response = await fetch(`/api/comments/filterCommentsByLikes/${idCharacter}`);
+
+        if(!response.ok){
+            throw new Error(`likeAComment : fetch error : ${response.status} : ${response.statusText}`);
+        }
+        
+        const comments = await response.json();
+        return comments;
+
+    } catch (error) {
+        console.error('likeAComment::error', error);
+        throw error;
+    }  
+}
+
 
 // eslint-disable-next-line import/prefer-default-export
-export {postComment,getComments, likeAComment};
+export {postComment,getComments, likeAComment, filterCommentsByLikes};

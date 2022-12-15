@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   readAllCharacters,
   readOneCharacter,
+  filterCharactersByVotes,
 
 } = require('../models/character');
 
@@ -15,6 +16,7 @@ router.get('/', (req, res) => {
 
 // Read one character
 router.get('/:id', (req, res) => {
+  console.log("Hello")
   console.log(`GET /characters/${req.params.id}`);
 
   const foundCharacter = readOneCharacter(req.params.id);
@@ -23,6 +25,11 @@ router.get('/:id', (req, res) => {
 
   return res.json(foundCharacter);
 });
+
+router.get('/filterChararacters/votes', (req,res) => {
+  const characters = filterCharactersByVotes();
+  return res.json(characters);
+})
 
 
 module.exports = router;

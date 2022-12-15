@@ -59,5 +59,13 @@ function getNextId(){
     return nextId;
 }
 
+function filterCommentsByLikes(idCharacter){
+    const db = parse(jsonDbPath);
+    const comments = db.filter((value) => value.idCharacter === idCharacter);
+    comments.sort((a,b)=> b.likes - a.likes)
+    console.log("Comments sorted:", comments);
+    return comments;
+}
 
-module.exports = {postComment,getComments, likeAComment};
+
+module.exports = {postComment,getComments, likeAComment, filterCommentsByLikes};

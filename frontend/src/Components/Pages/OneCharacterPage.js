@@ -8,7 +8,7 @@ import { getSessionObject, removeSessionObject, setSessionObject } from '../../u
 import { readOneCharacter, readAllCharacters } from '../../models/character';
 import { alreadyVoted, getAverageVotes, submitVote } from '../../models/vote';
 import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
-import { getComments, likeAComment, postComment } from '../../models/comment';
+import { filterCommentsByLikes, getComments, likeAComment, postComment } from '../../models/comment';
 
 
 const OneCharacterPage = async () => {
@@ -29,9 +29,13 @@ const OneCharacterPage = async () => {
   <p><b>Character ID : ${idCharacter} </b></p>
   <p><b>Character name : ${character.name} </b></p>
   `
-
-  const averageVotes = await getAverageVotes(idCharacter);
-  const arrayComments = await getComments(idCharacter);
+  const filteredComments = await filterCommentsByLikes(idCharacter);
+  console.log("Filtered Comments : ", filteredComments);
+  let averageVotes = await getAverageVotes(idCharacter);
+  if(averageVotes === 0){
+    averageVotes = "No one has voted for this character yet";
+  }
+  let arrayComments = await getComments(idCharacter);
   let comments=`
     <p><b>Comments :</b></p>
   `;
@@ -40,13 +44,14 @@ const OneCharacterPage = async () => {
     <p><b>No comments yet. </b></p>
     `
   }else{
+    arrayComments = filteredComments;
     for(let i = 0; i<arrayComments.length; i++){
       comments+=`
       <p>
-        <b>${arrayComments[i].user} : </b>
-        <b>${arrayComments[i].idComment} : </b>
-        <a>${arrayComments[i].comment}</a>  
-        <button id="likeACommentButton" class="btn btn-primary" data-value="${arrayComments[i].idComment}">Like</button>
+        <b>${arrayComments[i].iduser} : </b>
+        <b>${arrayComments[i].id} : </b>
+        <a>${arrayComments[i].content}</a>  
+        <button id="likeACommentButton" class="btn btn-primary" data-value="${arrayComments[i].id}">Like</button>
         <a>Likes: ${arrayComments[i].likes}</a>
       </p>
       `

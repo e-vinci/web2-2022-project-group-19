@@ -5,7 +5,8 @@ const router = express.Router();
 const{
     postComment, 
     getComments,
-    likeAComment, 
+    likeAComment,
+    filterCommentsByLikes, 
 
 } = require('../models/comment');
 
@@ -24,5 +25,10 @@ router.get('/getComments/:id', (req,res) =>{
 router.get('/likeAComment/:id', (req,res) =>{
     const likeCount = likeAComment(req.params.id);
     return res.json(likeCount);
+})
+
+router.get('/filterCommentsByLikes/:id', (req,res) =>{
+    const filteredComments = filterCommentsByLikes(req.params.id);
+    return res.json(filteredComments);
 })
 module.exports = router;

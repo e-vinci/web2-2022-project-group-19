@@ -5,9 +5,10 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
 // eslint-disable-next-line import/no-cycle
-import { readAllCharacters } from '../../models/character';
+import { filterCharactersByVotes, readAllCharacters} from '../../models/character';
 import { setSessionObject } from '../../utils/session';
 import Navigate from '../Router/Navigate';
+// import { getAverageVotes } from '../../models/vote';
 
 
 
@@ -17,12 +18,47 @@ const HomePage = async () => {
   Navbar();
 
   // data for without filter
-  const characters = await readAllCharacters();
+  const STORE_NAME = "characters";
+  let currentFilter;
+
+
+  // let characters = await readAllCharacters();
+  let characters;
+  if(localStorage.getItem(STORE_NAME,currentFilter) === undefined){
+    currentFilter = "default"
+    localStorage.setItem(STORE_NAME,currentFilter);
+  }
+  if(localStorage.getItem(STORE_NAME,currentFilter) === "like"){
+    characters = await filterCharactersByVotes();
+    console.log("Filter: like");
+  }
+  else if(localStorage.getItem(STORE_NAME,currentFilter) === "comment"){
+    console.log("Filter: comment");
+  }
+  else{
+    currentFilter = "default"
+    characters = await readAllCharacters();
+  }
   // data for filter
   // const character2 = await readAllCharacters();
   const main = document.querySelector('main');
   const title = `<h1 class = "title"> All Characters </h1>`;
   let table = `<ul class="card-group h-100 justify-content-center">`;
+
+  const filter = `
+  <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Filter
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" data-value="default">Default</a></li>
+    <li><a class="dropdown-item" data-value="like">Most Liked</a></li>
+    <li><a class="dropdown-item" data-value="comment">Most Commented</a></li>
+  </ul>
+</div>
+  `;
+
+
 
   // searchbar code
   /*
@@ -98,8 +134,7 @@ const HomePage = async () => {
   }
 
   table += `</ul>`;
-  
-  main.innerHTML = title +  table;
+  main.innerHTML = title + filter + table;
 
   const button = document.querySelectorAll("#button");
   
@@ -119,6 +154,29 @@ const HomePage = async () => {
     })
   }
   
+  const filterButton = document.getElementsByClassName("dropdown-item");
+  console.log("Filter button: ", filterButton);
+  for(const btn of filterButton){
+    // eslint-disable-next-line no-loop-func
+    btn.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const buttonClicked = e.target;
+      const {value} = buttonClicked.dataset;
+      if(value){
+        console.log("Value Filter:" , value);
+        if(value === "like"){
+          currentFilter = "like";
+          localStorage.setItem(STORE_NAME,currentFilter);
+          location.reload();
+        }else if(value === "default"){
+          currentFilter = "default";
+          localStorage.setItem(STORE_NAME,currentFilter);
+          location.reload();
+        }
+      }
+    })
+  }
+
 };
 
 export default HomePage;

@@ -40,14 +40,13 @@ function getAverageVotes(idCharacter){
     const db = parse(jsonDbPath);
     const votes = db.filter((value) => value.idCharacter === idCharacter);
     const nbDeVotes = votes.length;
-    if(nbDeVotes === 0) return "No one has voted for this character yet";
+    if(nbDeVotes === 0) return 0;
     let totalVoteValue=0;
     // eslint-disable-next-line no-plusplus
     for(let i = 0; i < nbDeVotes; i++){
         totalVoteValue += parseInt(votes[i].value);
     }
-
-    return String(totalVoteValue/votes.length);
+    return totalVoteValue/votes.length;
 }
 
 module.exports = {
