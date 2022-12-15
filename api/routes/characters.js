@@ -5,13 +5,14 @@ const fs = require('fs');
 const formidable = require('formidable');
 
 const router = express.Router();
+const { json } = require('express');
 const {
   readAllCharacters,
   readOneCharacter,
   addOneCharacter,
 
 } = require('../models/character');
-const { json } = require('express');
+
 
 // Read all the characters 
 router.get('/', (req, res) => {

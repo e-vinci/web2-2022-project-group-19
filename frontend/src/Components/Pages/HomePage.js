@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable vars-on-top */
 /* eslint-disable no-var */
 /* eslint-disable no-restricted-syntax */
@@ -20,27 +21,25 @@ const HomePage = async () => {
 
   // data for without filter
   const characters = await readAllCharacters();
-  // data for filter
-  // const character2 = await readAllCharacters();
+  console.log(characters);
+  
   const main = document.querySelector('main');
   const title = `<h1 class = "title"> All Characters </h1>`;
   let table = `<ul class="card-group h-100 justify-content-center">`;
 
- 
-  // display without the filter from searchbar
   for (let index = 0; index < characters.length; index++) {
   table += `<li class="headPage">
      <div class="container ">
         <div class="row ">
-          <div class="col>
-             <div class="card  text-black bg-primary mb-3" style="max-width: 18rem; ">
+          <div class="col">
+             <div class="card text-black bg-primary mb-3" style="max-width: 18rem; ">
                <div class="card" >
                  <div class="card-columns"> 
-                   <img class="card-img-top" src="${characters[index].images.md}" alt="Card image cap" />
+                   <img class="card-img-top" src="${characters[index]?.images?.md}" alt="Card image cap" />
                    <div class="card-body">
                     <h3 class="card-title"> ${characters[index].name}</h3> 
                     <br>
-                    <p class="card-text"> Intelligence : ${characters[index].powerstats.intelligence}  </p>
+                    <p class="card-text"> Intelligence : ${characters[index].powerstats?.intelligence}  </p>
                     <p class="card-text"> Strength : ${characters[index].powerstats.strength}  </p>
                     <p class="card-text"> Speed : ${characters[index].powerstats.speed}  </p>
                     <p class="card-text"> Power : ${characters[index].powerstats.power}  </p>
