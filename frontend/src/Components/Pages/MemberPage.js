@@ -1,5 +1,3 @@
-// const path = require('node:path');
-// const { parse } = require('../../../../api/utils/json.js');
 
 const MemberPage = () => {
     const main = document.querySelector('main');
@@ -18,4 +16,5 @@ const MemberPage = () => {
   };
 
 
-  export default MemberPage;
+
+export default MemberPage;
