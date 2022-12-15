@@ -87,9 +87,16 @@ function getNextId() {
   return nextId;
 }
 
+function getUsers(){
+  const users = parse(jsonDbPath,defaultUsers);
+  return users;
+}
+
 module.exports = {
   login,
   register,
   readOneUserFromUsername,
+  getUsers,
+  
 };
 

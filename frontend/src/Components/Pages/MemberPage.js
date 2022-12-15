@@ -4,7 +4,7 @@
 const MemberPage = () => {
     const main = document.querySelector('main');
     main.innerHTML = `<h3>Member administration zone</h3>`;
-    
+    /*
     const jsonDbPath = path.join(__dirname, '../../../../api/data/users.json');
 
     function readAllUsers() {
@@ -14,6 +14,7 @@ const MemberPage = () => {
         return users;
     };
     console.log(readAllUsers);
+    */
   };
 
 
