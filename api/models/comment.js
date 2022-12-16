@@ -1,3 +1,5 @@
+/* eslint-disable radix */
+/* eslint-disable no-plusplus */
 const path = require('node:path');
 const { parse, serialize } = require('../utils/json');
 const { readOneUserFromID } = require('./users');
@@ -7,18 +9,16 @@ const jsonDbPath = path.join(__dirname, '/../data/comment.json');
 // Post a comment
 function postComment(data){
     const comments = parse(jsonDbPath);
-    const reply = [];
+    const likes = [];
     const newComment = {
         id: getNextId(),
         content: (data.comment),
-        replies: reply,
-        likes: 0, 
+        likes, 
         idCharacter: data.idCharacter,
         idUser: data.idUser,
     };
     comments.push(newComment);
     serialize(jsonDbPath,comments);
-    console.log("Comments: ", comments);
     return newComment;
 }
 
@@ -27,7 +27,6 @@ function getComments(idCharacter){
     const db = parse(jsonDbPath);
     const comments = db.filter((value) => value.idCharacter === idCharacter);
     const arrayComments = [];
-    // eslint-disable-next-line no-plusplus
     for(let i = 0; i < comments.length; i++){
         const commentAndUsername = {
             idComment: comments[i].id,
@@ -37,17 +36,18 @@ function getComments(idCharacter){
         }
         arrayComments.push(commentAndUsername);
     }
+
     return arrayComments;
 }
-// To like a comment
-function likeAComment(idComment){
+// Comment liked by user
+function likeAComment(data){
     const comments = parse(jsonDbPath);
-    // eslint-disable-next-line radix
-    const comment= comments.find((value) => value.id === parseInt(idComment));
-    comment.likes += 1;
-    console.log("Likes: ", comment.likes);
-    serialize(jsonDbPath,comments)
-    return comment.likes;
+    const comment = comments.find((value) => value.id === parseInt(data.idComment));
+    const {likes} = comment;
+    likes.push(data.idUser);
+    serialize(jsonDbPath,comments);
+
+    return likes;
 }
 
 function getNextId(){
@@ -56,16 +56,36 @@ function getNextId(){
     if (lastItemIndex === undefined) return 1;
     const lastId = comments[lastItemIndex]?.id;
     const nextId = lastId + 1;
+
     return nextId;
 }
 
 function filterCommentsByLikes(idCharacter){
     const db = parse(jsonDbPath);
     const comments = db.filter((value) => value.idCharacter === idCharacter);
-    comments.sort((a,b)=> b.likes - a.likes)
-    console.log("Comments sorted:", comments);
-    return comments;
+    comments.sort((a,b)=> b.likes - a.likes);
+    
+    const filteredComments = [];
+    for(let i = 0; i < comments.length; i++){
+        const commentAndUsername = {
+            idComment: comments[i].id,
+            comment: comments[i].content,
+            likes: comments[i].likes,
+            user: readOneUserFromID(comments[i].idUser),
+        }
+        filteredComments.push(commentAndUsername);
+    }
+
+    return filteredComments;
 }
-
-
-module.exports = {postComment,getComments, likeAComment, filterCommentsByLikes};
+// User has alreadyLikeComment
+function alreadyLikedComment(data){
+    const db = parse(jsonDbPath);
+    const comment = db.find((value) => value.id === parseInt(data.idComment));
+    const {likes} = comment;
+    const alreadyLiked = likes.find((value) => value === parseInt(data.idUser));
+    if(alreadyLiked) return true;
+    
+    return false;
+}
+module.exports = {postComment,getComments, likeAComment, filterCommentsByLikes, alreadyLikedComment};

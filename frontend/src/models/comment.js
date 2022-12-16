@@ -47,11 +47,20 @@ const getComments = async (idCharacter)=>{
     }  
 }
 
-const likeAComment = async (idComment) => {
-    if(!idComment) return undefined;
+const likeAComment = async (idcomment,iduser) => {
+    if(!idcomment || !iduser) return undefined;
     try {
-
-        const response = await fetch(`/api/comments/likeAComment/${idComment}`);
+        const options = {
+            method: 'POST',
+            body: JSON.stringify({
+                idComment: idcomment,
+                idUser: iduser,
+            }),
+            headers: {
+                'Content-Type' : 'application/json',
+            },
+        };
+        const response = await fetch(`/api/comments/likeAComment`, options);
 
         if(!response.ok){
             throw new Error(`likeAComment : fetch error : ${response.status} : ${response.statusText}`);
@@ -85,6 +94,34 @@ const filterCommentsByLikes = async (idCharacter) =>{
     }  
 }
 
+const alreadyLikedComment = async (idcomment,iduser) => {
+    if(!idcomment || !iduser) return undefined;
+    try {
+        const options = {
+            method: 'POST',
+            body: JSON.stringify({
+                idComment: idcomment,
+                idUser: iduser,
+            }),
+            headers: {
+                'Content-Type' : 'application/json',
+            },
+        };
+        const response = await fetch(`/api/comments/alreadyLikedComment`, options);
+
+        if(!response.ok){
+            throw new Error(`alreadyLikedComment : fetch error : ${response.status} : ${response.statusText}`);
+        }
+        
+        const boolean = await response.json();
+        return boolean;
+
+    } catch (error) {
+        console.error('alreadyLikedComment::error', error);
+        throw error;
+    }  
+}
+
 
 // eslint-disable-next-line import/prefer-default-export
-export {postComment,getComments, likeAComment, filterCommentsByLikes};
+export {postComment,getComments, likeAComment, filterCommentsByLikes, alreadyLikedComment};

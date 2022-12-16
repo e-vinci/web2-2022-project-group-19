@@ -9,8 +9,9 @@ import { getSessionObject, removeSessionObject, setSessionObject } from '../../u
 import { readOneCharacter, readAllCharacters } from '../../models/character';
 import { alreadyVoted, getAverageVotes, submitVote } from '../../models/vote';
 import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
-import { filterCommentsByLikes, getComments, likeAComment, postComment } from '../../models/comment';
+import { alreadyLikedComment, filterCommentsByLikes, getComments, likeAComment, postComment } from '../../models/comment';
 
+const Swal = require('sweetalert2')
 
 const OneCharacterPage = async () => {
   clearPage();
@@ -20,20 +21,18 @@ const OneCharacterPage = async () => {
   // recover the id character by clicking on the button
   const idCharacter = localStorage.getItem("idCharacter");
   const character = await readOneCharacter(idCharacter);
-  const connectedUser = await getAuthenticatedUser();
-
   
   const displayCharacter = `
   <img src="${character.images.md}"/>
   <p><b>Character ID : ${idCharacter} </b></p>
   <p><b>Character name : ${character.name} </b></p>
   `
-  const filteredComments = await filterCommentsByLikes(idCharacter);
+
   let averageVotes = await getAverageVotes(idCharacter);
   if(averageVotes === 0){
     averageVotes = "No one has voted for this character yet";
   }
-  let arrayComments = await getComments(idCharacter);
+  const arrayComments = await filterCommentsByLikes(idCharacter);
   let comments=`
     <p><b>Comments :</b></p>
   `;
@@ -42,15 +41,13 @@ const OneCharacterPage = async () => {
     <p><b>No comments yet. </b></p>
     `
   }else{
-    arrayComments = filteredComments;
     for(let i = 0; i<arrayComments.length; i++){
       comments+=`
       <p>
-        <b>${arrayComments[i].iduser} : </b>
-        <b>${arrayComments[i].id} : </b>
-        <a>${arrayComments[i].content}</a>  
-        <button id="likeACommentButton" class="btn btn-primary" data-value="${arrayComments[i].id}">Like</button>
-        <a>Likes: ${arrayComments[i].likes}</a>
+        <b>${arrayComments[i].user} : </b>
+        <a>${arrayComments[i].comment}</a>  
+        <button id="likeACommentButton" class="btn btn-primary" data-value="${arrayComments[i].idComment}">Like</button>
+        <a>Likes: ${arrayComments[i].likes.length}</a>
       </p>
       `
     }
@@ -150,12 +147,33 @@ const OneCharacterPage = async () => {
 
   for(let i = 0; i<likeACommentButton.length; i++){
     const btn = likeACommentButton[i];
-    btn.addEventListener('click', (e)=> {
+    btn.addEventListener('click', async (e)=> {
       e.preventDefault();
       const buttonClicked = e.target;
       const idComment = buttonClicked.dataset.value;
       if(idComment){
-        likeAComment(idComment);
+        if(!connected){
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: "Only connected users can like a comment",
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
+        const alreadyLiked = await alreadyLikedComment(idComment,idUser);
+        console.log(alreadyLiked);
+        if(alreadyLiked){
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: "You have already liked this comment",
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }else{
+          likeAComment(idComment,idUser);
+        }
         OneCharacterPage();
       }
     })

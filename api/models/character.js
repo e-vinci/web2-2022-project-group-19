@@ -20,16 +20,7 @@ function readOneCharacter(id) {
   const characters = parse(jsonDbPath);
   // eslint-disable-next-line radix
   const character = characters.find((value) => value.id === parseInt(id));
-  console.log("Character= ", character);
   return character;
-  // console.log(characters);
-  // const characterFound = characters.find(function(character){
-  //   return character.id === id;
-  // })[0].foo;
-  // if (!characterFound) return undefined;
-  // console.log(characterFound);
-
-  // return characterFound;
 }
 
 function filterCharactersByVotes(){
@@ -38,6 +29,7 @@ function filterCharactersByVotes(){
     const A = String(a.id);
     const B = String(b.id);
     const ratio = getAverageVotes(B) - getAverageVotes(A);
+
     return ratio;
   });
 
@@ -50,6 +42,7 @@ function filterChararactersByComments(){
     const A = String(a.id);
     const B = String(b.id);
     const ratio = getComments(B).length - getComments(A).length;
+    
     return ratio;
   })
   return characters;

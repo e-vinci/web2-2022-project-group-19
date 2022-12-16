@@ -45,6 +45,25 @@ function setRememberMe(remembered) {
   localStorage.setItem(REMEMBER_ME, rememberedSerialized);
 }
 
+const readOneUserFromID = async (iduser) => {     
+  if(!iduser) return undefined;
+  try {
+
+      const response = await fetch(`/api/users/readOneUserFromID${iduser}`);
+
+      if(!response.ok){
+          throw new Error(`readOneUserFromID : fetch error : ${response.status} : ${response.statusText}`);
+      }
+      
+      const user = await response.json();
+      return user;
+
+  } catch (error) {
+      console.error('readOneUserFromID::error', error);
+      throw error;
+  } 
+}
+
 export {
   getAuthenticatedUser,
   setAuthenticatedUser,
@@ -52,4 +71,6 @@ export {
   clearAuthenticatedUser,
   getRememberMe,
   setRememberMe,
+  readOneUserFromID,
+  
 };

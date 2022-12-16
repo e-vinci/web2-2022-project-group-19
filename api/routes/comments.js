@@ -6,7 +6,8 @@ const{
     postComment, 
     getComments,
     likeAComment,
-    filterCommentsByLikes, 
+    filterCommentsByLikes,
+    alreadyLikedComment, 
 
 } = require('../models/comment');
 
@@ -22,13 +23,18 @@ router.get('/getComments/:id', (req,res) =>{
     return res.json(comments);
 })
 
-router.get('/likeAComment/:id', (req,res) =>{
-    const likeCount = likeAComment(req.params.id);
+router.post('/likeAComment', (req,res) =>{
+    const likeCount = likeAComment(req.body);
     return res.json(likeCount);
 })
 
 router.get('/filterCommentsByLikes/:id', (req,res) =>{
     const filteredComments = filterCommentsByLikes(req.params.id);
     return res.json(filteredComments);
+})
+
+router.post('/alreadyLikedComment', (req,res) => {
+    const boolean = alreadyLikedComment(req.body);
+    return res.json(boolean);
 })
 module.exports = router;
