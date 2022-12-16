@@ -13,7 +13,6 @@ const postComment = async (idcharacter,iduser,commentValue) => {
                 'Content-Type' : 'application/json',
             },
         };
-        console.log("Inside comment: ", idcharacter,iduser,commentValue);
         const response = await fetch('/api/comments/postComment', options);
         
         if(!response.ok){
@@ -21,7 +20,6 @@ const postComment = async (idcharacter,iduser,commentValue) => {
         }
 
         const comment = await response.json();
-        console.log("Comment json:", comment);
         return comment; 
     } catch (error) {
         console.error('postComment::error:', error);   

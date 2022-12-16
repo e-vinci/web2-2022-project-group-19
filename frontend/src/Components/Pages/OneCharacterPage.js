@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
@@ -17,11 +18,9 @@ const OneCharacterPage = async () => {
 
   const main = document.querySelector('main');
   // recover the id character by clicking on the button
-  const idCharacter = getSessionObject("id");
+  const idCharacter = localStorage.getItem("idCharacter");
   const character = await readOneCharacter(idCharacter);
   const connectedUser = await getAuthenticatedUser();
-  // delete from session storage to clean
-  removeSessionObject("id");
 
   
   const displayCharacter = `
@@ -30,7 +29,6 @@ const OneCharacterPage = async () => {
   <p><b>Character name : ${character.name} </b></p>
   `
   const filteredComments = await filterCommentsByLikes(idCharacter);
-  console.log("Filtered Comments : ", filteredComments);
   let averageVotes = await getAverageVotes(idCharacter);
   if(averageVotes === 0){
     averageVotes = "No one has voted for this character yet";
@@ -133,8 +131,7 @@ const OneCharacterPage = async () => {
       const {value} = buttonClicked.dataset;
       if(value){
         const submited  = submitVote(idCharacter,idUser,value);
-        // eslint-disable-next-line no-restricted-globals
-        location.reload();
+        OneCharacterPage();
       }
     });
   }
@@ -146,8 +143,7 @@ const OneCharacterPage = async () => {
       e.preventDefault();
       const comment = document.getElementById("commentForm");
       postComment(idCharacter,idUser,comment.value);
-      // eslint-disable-next-line no-restricted-globals
-      location.reload();
+      OneCharacterPage();
     })
   }
   const likeACommentButton = document.querySelectorAll("#likeACommentButton");
@@ -158,10 +154,9 @@ const OneCharacterPage = async () => {
       e.preventDefault();
       const buttonClicked = e.target;
       const idComment = buttonClicked.dataset.value;
-      console.log("Id comment :", idComment);
       if(idComment){
-        console.log("Inside like");
         likeAComment(idComment);
+        OneCharacterPage();
       }
     })
   }

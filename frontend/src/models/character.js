@@ -19,14 +19,12 @@ const readAllCharacters = async () => {
 // call the function to recover one character from the api
 const readOneCharacter = async (id) => {
   if (!id) return undefined;
-  console.log(id);
   try {
     const response = await fetch(`/api/characters/${id}`);
     if (!response.ok) {
       throw new Error(`readOneCharacter:: fetch error : ${response.status} : ${response.statusText}`);
     }
     const character = await response.json();
-    console.log(character);
     return character;
   } catch (err){
     // eslint-disable-next-line no-console
@@ -38,8 +36,6 @@ const readOneCharacter = async (id) => {
 const filterCharactersByVotes = async () => {
   try {
     const response = await fetch('/api/characters/filterCharacters/votes');
-
-    console.log("Before");
 
     if (!response.ok) {
       throw new Error(`filterCharactersByVotes:: fetch error : ${response.status} : ${response.statusText}`);
@@ -57,10 +53,7 @@ const filterCharactersByVotes = async () => {
 
 const filterChararactersByComments = async () => {
   try {
-    console.log("Before");
     const response = await fetch('/api/characters/filterCharacters/comments');
-
-    console.log("After");
 
     if (!response.ok) {
       throw new Error(`filterCharactersByComments:: fetch error : ${response.status} : ${response.statusText}`);

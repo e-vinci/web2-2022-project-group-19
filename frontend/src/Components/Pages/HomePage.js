@@ -6,7 +6,7 @@ import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
 // eslint-disable-next-line import/no-cycle
 import { filterCharactersByVotes, filterChararactersByComments, readAllCharacters} from '../../models/character';
-import { setSessionObject } from '../../utils/session';
+// import { setSessionObject } from '../../utils/session';
 import Navigate from '../Router/Navigate';
 // import { getAverageVotes } from '../../models/vote';
 
@@ -30,11 +30,9 @@ const HomePage = async () => {
   }
   if(localStorage.getItem(STORE_NAME,currentFilter) === "like"){
     characters = await filterCharactersByVotes();
-    console.log("Filter: like");
   }
   else if(localStorage.getItem(STORE_NAME,currentFilter) === "comment"){
     characters = await filterChararactersByComments();
-    console.log("Filter: comment");
   }
   else{
     currentFilter = "default"
@@ -148,7 +146,8 @@ const HomePage = async () => {
       // eslint-disable-next-line prefer-destructuring
       const id = buttonClicked?.dataset?.id;
       if (id) {
-        setSessionObject('id', id);
+        // setSessionObject('id', id);
+        localStorage.setItem("idCharacter",id);
         Navigate('/OneCharacterPage');
       }
 
@@ -156,7 +155,6 @@ const HomePage = async () => {
   }
   
   const filterButton = document.getElementsByClassName("dropdown-item");
-  console.log("Filter button: ", filterButton);
   for(const btn of filterButton){
     // eslint-disable-next-line no-loop-func
     btn.addEventListener('click', async (e)=>{
@@ -164,23 +162,19 @@ const HomePage = async () => {
       const buttonClicked = e.target;
       const {value} = buttonClicked.dataset;
       if(value){
-        console.log("Value Filter:" , value);
         if(value === "like"){
           currentFilter = "like";
           localStorage.setItem(STORE_NAME,currentFilter);
-          // à modifier
-          location.reload();
+          HomePage();
         }else if(value === "comment"){
           currentFilter = "comment";
           localStorage.setItem(STORE_NAME,currentFilter);
-          // à modifier
-          location.reload();
+          HomePage(); 
         }
         else{
           currentFilter = "default";
           localStorage.setItem(STORE_NAME,currentFilter);
-          // à modifier
-          location.reload();
+          HomePage();
         }
       }
     })
