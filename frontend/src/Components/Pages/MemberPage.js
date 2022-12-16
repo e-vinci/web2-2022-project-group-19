@@ -32,6 +32,8 @@ const MemberPage = async () => {
                     <th scope="col">Email</th>
                     <th scope="col">Delete</th>
                     <th scope="col">Make Admin</th>
+                    <th scope="col"></th>
+
                 </tr>
             </thead>
             <tbody>`;
