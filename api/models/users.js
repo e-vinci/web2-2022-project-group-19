@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const path = require('node:path');
 const { parse, serialize } = require('../utils/json');
+const escape = require('escape-html');
 
 const jwtSecret = 'ilovemypizza!';
 const lifetimeJwt = 24 * 60 * 60 * 1000; // in ms : 24 * 60 * 60 * 1000 = 24h
@@ -78,6 +79,47 @@ function createOneUser(username, password) {
   return createdUser;
 }
 
+function readAllUsers() {
+  const users = parse(jsonDbPath);
+
+  return users;
+}
+
+
+function deleteOneUser(id) {
+  const idAsNumber = parseInt(id, 10);
+  const users = parse(jsonDbPath);
+  const foundIndex = users.findIndex((user) => user.id === idAsNumber);
+  if (foundIndex < 0) return undefined;
+  const deletedUsers = users.splice(foundIndex, 1);
+  const deletedUser = deletedUsers[0];
+  serialize(jsonDbPath, users);
+
+  return deletedUser;
+}
+
+
+function updateStatusUser(id, propertiesToUpdate) {
+  const usersPropertiesToBeUpdated = { ...propertiesToUpdate };
+  const idAsNumber = parseInt(id, 10);
+  const users = parse(jsonDbPath);
+  const foundIndex = users.findIndex((user) => user.id === idAsNumber);
+  if (foundIndex < 0) return undefined;
+
+  if (usersPropertiesToBeUpdated?.status)
+    usersPropertiesToBeUpdated.status = escape(propertiesToUpdate.title);
+
+  const updatedUser = { ...users[foundIndex], ...usersPropertiesToBeUpdated };
+
+  users[foundIndex] = updatedUser;
+
+  serialize(jsonDbPath, users);
+
+  return updatedUser;
+}
+
+
+
 function getNextId() {
   const users = parse(jsonDbPath, defaultUsers);
   const lastItemIndex = users?.length !== 0 ? users.length - 1 : undefined;
@@ -91,5 +133,9 @@ module.exports = {
   login,
   register,
   readOneUserFromUsername,
+  updateStatusUser,
+  deleteOneUser,
+  readAllUsers
+  ,
 };
 
