@@ -83,6 +83,7 @@ async function onLogin(e) {
   const response = await fetch(`${process.env.API_BASE_URL}/auths/login`, options);
 
   if (!response.ok) {
+
     Swal.fire({
       position: 'center',
       icon: 'error',

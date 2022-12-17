@@ -1,7 +1,7 @@
 import Logout from '../Logout/Logout';
 import LoginPage from '../Pages/LoginPage';
 import RegisterPage from '../Pages/RegisterPage';
-import UserPage from '../Pages/UserPage';
+import ProfilePage from '../Pages/ProfilePage';
 import HomePage from '../Pages/HomePage';
 
 const routes = {
@@ -9,7 +9,8 @@ const routes = {
   '/login': LoginPage,
   '/register': RegisterPage,
   '/logout': Logout,
-  '/user' : UserPage,
+  '/profile': ProfilePage,
+
 };
 
 export default routes;

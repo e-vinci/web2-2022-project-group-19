@@ -55,7 +55,7 @@ async function onRegister(e) {
     },
   };
 
-  const response = await fetch('/api/auths/register', options);
+  const response = await fetch(`${process.env.API_BASE_URL}/auths/register`, options);
 
   if (!response.ok) {
     Swal.fire({
