@@ -1,21 +1,23 @@
-const { Configuration, OpenAIApi } = require('openai');
 
-let API_KEY = '';
+const readGeneratedImages = async () => {
+    
+  try {
+    const response = await fetch(`/api/openai/images`);
+    console.log(response);
+    if (!response.ok) {
+      throw new Error(
+        `readGeneratedImages:: fetch error : ${response.status} : ${response.statusText}`,
+      );
+    }
+    const generatedImages = await response.json();
+    console.log(generatedImages)
+    return generatedImages;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('readGeneratedImages::error: ', err);
+    throw err;
+  }
+};
 
-// recover key api
-fetch('/api/api-key')
-  .then((res) => res.json())
-  .then((json) => {
-    // Récupérer la variable d'environnement envoyée par le backend
-    API_KEY = json.key;
-
-});
-
-const configuration = new Configuration({
-  organization: 'org-LzLtDZbMLn3X2gfMnHjPRx42',
-  apiKey: API_KEY,
-});
-
-const openai = new OpenAIApi(configuration);
-
-export default openai;
+// eslint-disable-next-line import/prefer-default-export
+export { readGeneratedImages};

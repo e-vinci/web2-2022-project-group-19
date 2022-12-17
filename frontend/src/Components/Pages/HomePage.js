@@ -37,13 +37,13 @@ const HomePage = async () => {
                  <div class="card-columns"> 
                    <img class="card-img-top" src="${characters[index]?.images?.md}" alt="Card image cap" />
                    <div class="card-body">
-                    <h3 class="card-title"> ${characters[index].name}</h3> 
+                    <h3 class="card-title"> ${characters[index]?.name}</h3> 
                     <br>
-                    <p class="card-text"> Intelligence : ${characters[index].powerstats?.intelligence}  </p>
-                    <p class="card-text"> Strength : ${characters[index].powerstats.strength}  </p>
-                    <p class="card-text"> Speed : ${characters[index].powerstats.speed}  </p>
-                    <p class="card-text"> Power : ${characters[index].powerstats.power}  </p>
-                    <p class="card-text"> Combat : ${characters[index].powerstats.combat}  </p>
+                    <p class="card-text"> Intelligence : ${characters[index]?.powerstats?.intelligence}  </p>
+                    <p class="card-text"> Strength : ${characters[index]?.powerstats?.strength}  </p>
+                    <p class="card-text"> Speed : ${characters[index]?.powerstats?.speed}  </p>
+                    <p class="card-text"> Power : ${characters[index]?.powerstats?.power}  </p>
+                    <p class="card-text"> Combat : ${characters[index]?.powerstats?.combat}  </p>
                     <button class="btn btn-primary" id="button"  data-id="${characters[index].id}" > more details </button>  
                        
                   </div>

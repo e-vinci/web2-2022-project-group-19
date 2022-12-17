@@ -56,8 +56,8 @@ function addOneCharacter(body) {
     race: escape(body.race),
     height: escape(body.height),
     weight: escape(body.weight),
-    lg: escape(body.image)
-
+    md: escape(body.md),
+    lg: escape(body.lg),
   };
 
   characters.push(newCharacter);

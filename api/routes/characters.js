@@ -1,11 +1,22 @@
+/* eslint-disable no-prototype-builtins */
 const express = require('express');
 
-const fs = require('fs');
+// const fs = require('fs');
 
-const formidable = require('formidable');
+// const formidable = require('formidable');
 
 const router = express.Router();
-const { json } = require('express');
+// const { json } = require('express');
+
+const multer = require('multer');
+
+const storage = multer.memoryStorage();
+
+// eslint-disable-next-line object-shorthand
+const upload = multer({ storage: storage });
+
+const sharp = require('sharp');
+
 const {
   readAllCharacters,
   readOneCharacter,
@@ -32,17 +43,18 @@ router.get('/:id', (req, res) => {
   return res.json(foundCharacter);
 });
 
-router.post('/addCharacter', (req, res) => {
-  const form = formidable({ multiples: true });
-  form.parse(req, (err, fields, files) => {
-    console.log('fields: ', fields);
-    console.log('files: ', files);
-    res.send({ success: true });
-  });
+router.post('/addCharacter', upload.single('image'), (req, res) => {
+  // const form = formidable({ multiples: true });
+  // form.parse(req, (err, fields, files) => {
+    // console.log('fields: ', fields);
+    // console.log('files: ', files);
+    // res.send({ success: true });
+  // });
 
   // eslint-disable-next-line no-console
   console.log('POST /characters');
-
+  
+  
   if (
     !req.body ||
     (req.body.hasOwnProperty('name') && req.body.name === 0) ||
@@ -56,22 +68,35 @@ router.post('/addCharacter', (req, res) => {
     (req.body.hasOwnProperty('race') && req.body.race.length === 0) ||
     (req.body.hasOwnProperty('height') && req.body.height.length === 0) ||
     (req.body.hasOwnProperty('weight') && req.body.weight.length === 0)
+  )
+    return res.status(400).end();
+  const characterData = req.body;
+  
+  sharp(req.file)
+    .toFormat('jpeg')
+    .resize(480,640)
+    .toBuffer()
+    .then((data) => {
+      const imageData = Buffer.from(data).toString('base64');
+      const imageJsonMd = JSON.stringify({ image: imageData });
+      characterData.md = imageJsonMd;
+    });
+  sharp(req.file)
+     .toFormat('jpeg')
+     .resize(480, 640)
+     .toBuffer()
+     .then((data) => {
+       const imageData = Buffer.from(data).toString('base64');
+       const imageJsonLg = JSON.stringify({ image: imageData });
+       characterData.lg = imageJsonLg;
+     });
 
-  )  return res.status(400).end();
+  // characterData.md = imageJsonMd;
+  // characterData.lg = imageJsonLg;
 
-  // fs.writeFile('/path/to/image.jpg', image, (err) => {
-  //   if (err) {
-  //     // eslint-disable-next-line no-console
-  //     console.log(err);
-  //   } else {
+  const newCharacter = addOneCharacter(characterData);
 
-  //     res.send('Image uploaded successfully');
-  //   }
-  // });
-
-  const jeu = addOneCharacter(req.body);
-
-  return res.json(jeu);
+  return res.json(newCharacter);
   
 });
 
