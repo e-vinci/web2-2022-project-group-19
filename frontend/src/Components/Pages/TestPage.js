@@ -1,10 +1,10 @@
-import {image} from '../../img/groot.jpg';
+import grootImage from "../../img/canvas.png";
 
 const TestPage = () => {
     const main = document.querySelector('main');
     main.innerHTML =
-    `<h3>Welcome to Ultimate Universe</h3>
-    <div id="test">
+    `<div id="test">
+    <h3>Welcome to Ultimate Universe</h3>
     <canvas id="canvas" width="800" height="200">
     test
     </canvas>
@@ -13,7 +13,7 @@ const TestPage = () => {
 
 const img = new Image();
 
-img.src = image;
+img.src = grootImage;
 
 const canvasXSize = 800;
 const canvasYSize = 200;
