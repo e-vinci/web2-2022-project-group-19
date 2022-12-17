@@ -1,15 +1,20 @@
+import {image} from '../../img/groot.jpg';
+
 const TestPage = () => {
     const main = document.querySelector('main');
     main.innerHTML =
     `<h3>Welcome to Ultimate Universe</h3>
     <div id="test">
-    <canvas id="canvas" width="800" height="200"></canvas>
+    <canvas id="canvas" width="800" height="200">
+    test
+    </canvas>
     </div>
     `;   
 
 const img = new Image();
 
-img.src = "../../img/light.png";
+img.src = image;
+
 const canvasXSize = 800;
 const canvasYSize = 200;
 const speed = 30; 
