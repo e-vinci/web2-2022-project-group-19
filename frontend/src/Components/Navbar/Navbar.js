@@ -14,7 +14,7 @@ function renderNavbar() {
   const anonymousUserNavbar = `
 <nav class="navbar navbar-expand-lg navbar-light bg-info">
       <div class="container-fluid">
-      <a class="nav-link active" aria-current="page" href="#" data-uri="/test">${SITE_NAME}</a>
+      <a class="nav-link active" aria-current="page" href="#" data-uri="/animation">${SITE_NAME}</a>
         <button
 
           class="navbar-toggler"
@@ -47,7 +47,7 @@ function renderNavbar() {
   const authenticatedUserNavbar = `
 <nav class="navbar navbar-expand-lg navbar-light bg-info">
       <div class="container-fluid">
-      <a class="nav-link active" aria-current="page" href="#" data-uri="/test">Ultimate Universe</a>
+      <a class="nav-link active" aria-current="page" href="#" data-uri="/animation">Ultimate Universe</a>
         <button
           class="navbar-toggler"
           type="button"

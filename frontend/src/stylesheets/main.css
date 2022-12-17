@@ -11,8 +11,13 @@
     /* Added */
 }
 
-#test {
-    position: center;
-    margin-left: 5cm;
-
+/* pour l'animation */
+#titre {
+    margin-left: 425px;
+}
+#titre2 {
+    margin-left: 520px;
+}
+#animation {
+    margin-left: 225px;
 }

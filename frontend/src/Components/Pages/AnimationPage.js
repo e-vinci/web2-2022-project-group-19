@@ -1,13 +1,16 @@
-import grootImage from "../../img/canvas.png";
+import grootImage from "../../img/light(2).png";
 
 const TestPage = () => {
     const main = document.querySelector('main');
     main.innerHTML =
-    `<div id="test">
+    `<div id="titre">
     <h3>Welcome to Ultimate Universe</h3>
-    <canvas id="canvas" width="800" height="200">
-    test
-    </canvas>
+    </div>
+    <div id="animation">
+    <canvas id="canvas" width="800" height="200"></canvas>
+    </div>
+    <div id="titre2">
+    <h5>product by Groupe 19</h5>
     </div>
     `;   
 
