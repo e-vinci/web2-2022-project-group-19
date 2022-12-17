@@ -29,6 +29,7 @@ function login(username, password) {
   );
 
   const authenticatedUser = {
+    id: userFound.id,
     username,
     token,
   };
@@ -62,6 +63,13 @@ function readOneUserFromUsername(username) {
   if (indexOfUserFound < 0) return undefined;
 
   return users[indexOfUserFound];
+}
+
+function readOneUserFromID(id){
+  const users = parse(jsonDbPath,defaultUsers);
+  // eslint-disable-next-line radix
+  const user = users.find((value) => value.id === parseInt(id));
+  return user.username;
 }
 
 function createOneUser(username, password) {

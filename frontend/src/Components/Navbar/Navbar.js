@@ -41,6 +41,12 @@ function renderNavbar() {
               <a class="nav-link  btn btn-outline-light rounded-pill px-4" href="#" data-uri="/register">Register</a>
             </li>            
           </ul>
+           <form class="form-inline my-2 my-lg-0">
+              <input class="form-control" placeholder="Search" aria-label="Close" id = "search">
+                <button  type="button" class="btn-close" aria-label="Close" ></button>
+              </input>
+              <div id="searchname"> </div>
+            </form>
         </div>
       </div>
     </nav>
@@ -84,6 +90,12 @@ function renderNavbar() {
               <a class="nav-link active" aria-current="page" href="#" >${authenticatedUser?.username}</a>
             </li>           
           </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control" placeholder="Search" aria-label="Close" id = "search">
+            
+            </input>
+            <div id="searchname"> </div>
+          </form>
         </div>
       </div>
     </nav>
