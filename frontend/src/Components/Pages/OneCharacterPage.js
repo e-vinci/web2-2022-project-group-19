@@ -131,6 +131,7 @@ const OneCharacterPage = async () => {
               <p><b>Full name: </b>${character.biography.fullName}</p>
               <p><b>Race: </b>${character.appearance.race}</p>
               <p><b>Height: </b>${character.appearance.height}<p>
+              <p><b>Weight: </b>${character.appearance.weight}<p>
               <p><b>Groups: </b>${character.connections.groupAffiliation}</p>
               <p><b>Occupation: </b>${character.work.occupation}</p>
             </div>
