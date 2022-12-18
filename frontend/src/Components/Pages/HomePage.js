@@ -19,7 +19,7 @@ const HomePage = async () => {
   let characters;
 
   var search = location.search.split('search=')[1]
-
+  let searshcontent;
 
   if (localStorage.getItem(STORE_NAME, currentFilter) === undefined) {
     currentFilter = "default"
@@ -37,10 +37,9 @@ const HomePage = async () => {
   }
 
   const main = document.querySelector('main');
-  const title = `<h1 class = "title"> All Characters </h1>`;
   let table = `<ul class="card-group h-100 justify-content-center">`;
-  authenticated && (table += `<div class="container m-3">
-  <div class="row">
+  authenticated && (searshcontent = `<div class="container m-3">
+  <div class="row w-100">
     <div class="container h-100">
       <div class="d-flex justify-content-center h-100">
         <div class="searchbar">
@@ -52,7 +51,7 @@ const HomePage = async () => {
       </div>
       </div>
       </div>
-  </div>
+      </div>
 
   <div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -99,7 +98,7 @@ const HomePage = async () => {
 
   }
   table += `</ul>`;
-  main.innerHTML = title + table;
+  main.innerHTML = searshcontent + table;
 
 
   const button = document.querySelectorAll(".button");
