@@ -7,6 +7,7 @@ import OneCharacterPage from '../Pages/OneCharacterPage';
 import AddCharacterPage from '../Pages/AddCharacterPage';
 import MembrePage from '../Pages/MembrePage';
 import AnimationPage from '../Pages/AnimationPage';
+import AboutUsPage from '../Pages/AboutUsPage';
 
 
 const routes = {
@@ -19,6 +20,7 @@ const routes = {
   '/addCharacter': AddCharacterPage,
   '/member': MembrePage,
   '/animation' : AnimationPage,
+  '/aboutus' : AboutUsPage,
 };
 
 export default routes;
