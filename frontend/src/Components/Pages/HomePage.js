@@ -3,19 +3,22 @@ import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
 import { filterCharactersByVotes, filterChararactersByComments, searchCharacters, readAllCharacters } from '../../models/character';
 import Navigate from '../Router/Navigate';
+import { isAuthenticated } from '../../utils/auths';
+
 
 
 const HomePage = async () => {
   clearPage();
   renderPageTitle('HomePage');
   Navbar();
+  const authenticated = isAuthenticated();
+
 
   const STORE_NAME = "characters";
   let currentFilter;
   let characters;
 
   var search = location.search.split('search=')[1]
-  characters = search ? await searchCharacters(search) : await readAllCharacters();
 
 
   if (localStorage.getItem(STORE_NAME, currentFilter) === undefined) {
@@ -30,15 +33,13 @@ const HomePage = async () => {
   }
   else {
     currentFilter = "default"
-    characters = await readAllCharacters();
+    characters = search ? await searchCharacters(search) : await readAllCharacters();
   }
 
   const main = document.querySelector('main');
   const title = `<h1 class = "title"> All Characters </h1>`;
   let table = `<ul class="card-group h-100 justify-content-center">`;
-
-  table += `<div class="container m-3">
-  <h4 class ="m-3">Liste des characters</h4>
+  authenticated && (table += `<div class="container m-3">
   <div class="row">
     <div class="container h-100">
       <div class="d-flex justify-content-center h-100">
@@ -52,9 +53,7 @@ const HomePage = async () => {
       </div>
       </div>
   </div>
-  `;
 
-  const filter = `
   <div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
     Filter
@@ -65,8 +64,8 @@ const HomePage = async () => {
       <li><option class="dropdown-item" data-value="comment">Most Commented</option></li>
     </ul>
   </div>
-  `;
-
+  `
+  );
   for (let index = 0; index < characters.length; index++) {
     table += `
     <li class="headPage">
@@ -100,7 +99,7 @@ const HomePage = async () => {
 
   }
   table += `</ul>`;
-  main.innerHTML = title + filter + table;
+  main.innerHTML = title + table;
 
 
   const button = document.querySelectorAll(".button");

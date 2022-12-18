@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 const path = require('node:path');
 const bcrypt = require('bcrypt');
 const { parse, serialize } = require('../utils/json');
+const escape = require('escape-html');
+
 
 
 const jwtSecret = 'ilovemypizza!';
@@ -75,7 +77,7 @@ function readOneUserFromID(id) {
   const users = parse(jsonDbPath, defaultUsers);
   // eslint-disable-next-line radix
   const user = users.find((value) => value.id === parseInt(id));
-  return user.username;
+  return user?.username;
 }
 
 function createOneUser(username, password) {
@@ -116,9 +118,6 @@ async function updateOne(username, body) {
   if (foundIndex < 0) return;
   const usernameExist = users.findIndex((item) => item.username == body.username);
   if (usernameExist != -1) return;
-  // create a new object based on the existing item - prior to modification -
-  // and the properties requested to be updated (those in the body of the request)
-  // use of the spread operator to create a shallow copy and repl
   const updateditem = { ...users[foundIndex], ...body };
   // replace the item found at index : (or use splice)
   console.log(users[foundIndex])
@@ -136,13 +135,9 @@ async function updatePassword(username, body) {
   const foundIndex = users.findIndex((item) => item.username == username);
   if (foundIndex < 0) return;
   console.log("haha" + users[foundIndex].password);
-  // checked hash of passwords
-  const match = await bcrypt.compare(body.oldPassword, users[foundIndex].password);
-  // console.log("haha" + body.oldPassword + " " + body.nPassword);
-  //if (!match) return;
-  // const hashedPassword = await bcrypt.hash(body.nPassword, saltRounds);
+
   const newItem = {
-    username: username,
+    ...users[foundIndex],
     password: body.nPassword,
   }
   users[foundIndex] = newItem;

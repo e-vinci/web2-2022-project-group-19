@@ -88,7 +88,7 @@ const ProfilePage = async () => {
         const nUserName = document.getElementById("nUserName").value;
         const username = getAuthenticatedUser("user")?.username;
         // eslint-disable-next-line no-console
-        console.log(`hhhhhhhhhhhhhhhhhh${  username}`);
+        //  console.log(`hhhhhhhhhhhhhhhhhh${username}`);
         const options = {
             method: "PUT",
             body: JSON.stringify({
@@ -100,10 +100,11 @@ const ProfilePage = async () => {
             },
         };
 
-        const response = await fetch(`${process.env.API_BASE_URL}/users/updateUsername/${  username}`, options);
-        if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+        const response = await fetch(`${process.env.API_BASE_URL}/users/updateUsername/${username}`, options);
+        if (!response.ok) { showErrorUsername(); };
         const authenticatedUser = await response.json();
         setAuthenticatedUser(authenticatedUser);
+        Navigate('/logout');
 
     }
     // Change password 
@@ -143,12 +144,12 @@ const ProfilePage = async () => {
                 "Content-type": "application/json",
             },
         };
-        const response = await fetch(`${process.env.API_BASE_URL}/users/updatePassword/${  username}`, options);
-        if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+        const response = await fetch(`${process.env.API_BASE_URL}/users/updatePassword/${username}`, options);
+        if (!response.ok) { showErrorPwd(); }
         const authenticatedUser = await response.json();
         setAuthenticatedUser(authenticatedUser);
 
-        Navigate('/profile');
+        Navigate('/logout');
 
     }
 

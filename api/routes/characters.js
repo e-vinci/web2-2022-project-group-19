@@ -19,10 +19,10 @@ router.get('/', (req, res) => {
 });
 
 // Read one character
-router.get('/:id', (req, res) => {
-  const foundCharacter = readOneCharacter(req.params.id);
-  return res.json(foundCharacter);
-});
+// router.get('/:id', (req, res) => {
+//   const foundCharacter = readOneCharacter(req.params.id);
+//   return res.json(foundCharacter);
+// });
 
 router.get('/filterCharacters/votes', (req, res) => {
   const characters = filterCharactersByVotes();
