@@ -15,8 +15,8 @@ function renderNavbar() {
   const anonymousUserNavbar = `
 <nav class="navbar navbar-expand-lg navbar-light bg-warning px-5">
       <div class="container px-5">
-      <a class="nav-link active" aria-current="page" href="#" data-uri="/"> <img src='${light}' height='30px' >
-      <span class="ms-2  fw-bold  fs-5" >${SITE_NAME}  </span></a>
+      <a class="nav-link active" aria-current="page" href="#" data-uri="/animation"> <img src='${light}' height='30px' >
+      <span class="ms-2  fw-bold  fs-5" data-uri="/animation">${SITE_NAME}  </span></a>
      
         <button
           class="navbar-toggler"
@@ -48,8 +48,8 @@ function renderNavbar() {
   const authenticatedUserNavbar = `
 <nav class="navbar navbar-expand-lg navbar-light bg-warning px-5">
       <div class="container-fluid">
-      <a class="nav-link active px-2" aria-current="page" href="#" data-uri="/"> <img src='${light}' height='60px' >
-      <span class="ms-2  fw-bold  fs-5" >${SITE_NAME}  </span></a>
+      <a class="nav-link active px-2" aria-current="page" href="#" data-uri="/animation"> <img src='${light}' height='60px' >
+      <span class="ms-2  fw-bold  fs-5" data-uri="/animation">${SITE_NAME}  </span></a>
         <button
           class="navbar-toggler"
           type="button"

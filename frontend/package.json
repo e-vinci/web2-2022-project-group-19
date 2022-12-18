@@ -30,10 +30,11 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.9.2",
+    "animejs": "^3.2.1",
     "bootstrap": "^5.0.1",
     "gh-pages": "^4.0.0",
-    "sweetalert": "^2.1.2",
     "openai": "^3.1.0",
+    "sweetalert": "^2.1.2",
     "sweetalert2": "^11.6.15"
   }
 }

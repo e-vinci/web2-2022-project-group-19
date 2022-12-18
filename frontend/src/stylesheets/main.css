@@ -14,3 +14,14 @@
 li {
   list-style: none !important;
 }
+
+/* pour l'animation */
+#titre {
+  margin-left: 730px;
+}
+#titre2 {
+  margin-left: 810px;
+}
+#animation {
+  margin-left: 550px;
+}
