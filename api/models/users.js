@@ -65,8 +65,8 @@ function readOneUserFromUsername(username) {
   return users[indexOfUserFound];
 }
 
-function readOneUserFromID(id){
-  const users = parse(jsonDbPath,defaultUsers);
+function readOneUserFromID(id) {
+  const users = parse(jsonDbPath, defaultUsers);
   // eslint-disable-next-line radix
   const user = users.find((value) => value.id === parseInt(id));
   return user.username;
@@ -154,5 +154,6 @@ module.exports = {
   readOneUserFromUsername,
   updateOne,
   updatePassword,
+  readOneUserFromID,
 };
 

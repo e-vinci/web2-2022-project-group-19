@@ -11,9 +11,9 @@ const routes = {
   '/login': LoginPage,
   '/register': RegisterPage,
   '/logout': Logout,
-  '/user' : ProfilePage,
+  '/profile': ProfilePage,
   '/OneCharacterPage': OneCharacterPage,
-  '/addCharacter' : AddCharacterPage,
+  '/addCharacter': AddCharacterPage,
 };
 
 export default routes;
