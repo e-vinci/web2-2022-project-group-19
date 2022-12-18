@@ -1,3 +1,5 @@
+const { offset } = require("@popperjs/core");
+
 module.exports = {
   env: {
     browser: true,

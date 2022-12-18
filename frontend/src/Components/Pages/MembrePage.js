@@ -1,5 +1,4 @@
-
-import { readAllUsers, updateOneUser, deleteOneUser } from '../../models/users';
+import { readAllUsers} from '../../models/users';
 import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
 
 
@@ -46,7 +45,6 @@ const MemberPage = async () => {
 
     `
     main.innerHTML = table;
-    const tableContent = document.querySelector('#table-content');
     const deleteButton = document.querySelectorAll('.buttonDelete');
     deleteButton.forEach(btn => {
         btn.addEventListener("click", async (e) => {
@@ -62,7 +60,7 @@ const MemberPage = async () => {
                 },
             };
 
-            const response = await fetch(`${process.env.API_BASE_URL}/users/` + iduser, options);
+            const response = await fetch(`${process.env.API_BASE_URL}/users/${  iduser}`, options);
 
             if (response.ok) {
                 document.location.reload();
@@ -77,8 +75,8 @@ const MemberPage = async () => {
         btn.addEventListener("click", async (e) => {
             //    console.log(e.target.dataset.userId)
             const iduser = e.target.dataset.userId;
-            console.log(e.target.parentElement.parentElement.children[1].children[0].children[0].checked); //false treue
-            console.log(e.target.parentElement.parentElement.children[0].innerText); //false treue
+            console.log(e.target.parentElement.parentElement.children[1].children[0].children[0].checked); // false treue
+            console.log(e.target.parentElement.parentElement.children[0].innerText); // false treue
 
             const options = {
                 method: 'PATCH',
@@ -95,7 +93,7 @@ const MemberPage = async () => {
                 },
             };
 
-            const response = await fetch(`${process.env.API_BASE_URL}/users/` + iduser, options);
+            const response = await fetch(`${process.env.API_BASE_URL}/users/${  iduser}`, options);
 
             if (response.ok) {
                 document.location.reload();
@@ -103,8 +101,6 @@ const MemberPage = async () => {
 
         });
     })
-
-    //console.log(users);
 };
 
 export default MemberPage;

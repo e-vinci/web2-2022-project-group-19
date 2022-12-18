@@ -166,8 +166,6 @@ const addCharacter = async () => {
   main.innerHTML += stringForm;
 
   const getForm = document.getElementById('form');
-  const imageInput = document.getElementById('image');
-  const imageFile = imageInput.files[0];
 
 
   getForm.addEventListener('submit', async (event) => {
@@ -188,7 +186,6 @@ const addCharacter = async () => {
 
 
     event.preventDefault();
-    // formData.append('image', imageFile);
 
     try {
       const options = {

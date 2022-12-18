@@ -1,3 +1,5 @@
+import { getAuthenticatedUser } from "../utils/auths";
+
 const readAllUsers = async () => {
     try {
         const response = await fetch('/api/users');

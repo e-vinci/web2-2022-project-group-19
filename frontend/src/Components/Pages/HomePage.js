@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-plusplus */
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
@@ -18,7 +19,8 @@ const HomePage = async () => {
   let currentFilter;
   let characters;
 
-  var search = location.search.split('search=')[1]
+  // eslint-disable-next-line no-restricted-globals
+  const search = location.search.split('search=')[1]
   let searshcontent;
 
   if (localStorage.getItem(STORE_NAME, currentFilter) === undefined) {
@@ -38,6 +40,7 @@ const HomePage = async () => {
 
   const main = document.querySelector('main');
   let table = `<ul class="card-group h-100 justify-content-center">`;
+  // eslint-disable-next-line no-unused-expressions
   authenticated && (searshcontent = `<div class="container m-3">
   <div class="row w-100">
     <div class="container h-100">
@@ -105,6 +108,7 @@ const HomePage = async () => {
 
   // manage the action of button
   // the loop is to apply addEventListenner on all buttons !
+
   for (const btn of button) {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -122,9 +126,8 @@ const HomePage = async () => {
     });
   };
 
-  let btnSearch = document.getElementById("btnSearch");
+  const btnSearch = document.getElementById("btnSearch");
   btnSearch.addEventListener("click", () => {
-    let search = document.getElementById("search").value;
     Navigate('/');
   });
 

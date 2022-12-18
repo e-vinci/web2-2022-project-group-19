@@ -2,6 +2,7 @@
 import { Navbar as BootstrapNavbar } from 'bootstrap';
 import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
 import light from '../../img/light.png';
+
 const SITE_NAME = 'ULTIMATE UNIVERSE';
 
 

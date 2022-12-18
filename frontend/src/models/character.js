@@ -71,6 +71,7 @@ const filterChararactersByComments = async () => {
 
 const searchCharacters = async (search) => {
   try {
+    // eslint-disable-next-line prefer-template
     const response = await fetch('/api/characters/search/' + search);
 
     if (!response.ok) {
