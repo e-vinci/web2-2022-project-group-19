@@ -20,7 +20,7 @@ function login(username, password) {
   const userFound = readOneUserFromUsername(username);
   if (!userFound) return undefined;
   if (userFound.password !== password) return undefined;
-
+  let isAdmin = userFound.isAdmin;
   const token = jwt.sign(
     { username }, // session data added to the payload (payload : part 2 of a JWT)
     jwtSecret, // secret used for the signature (signature part 3 of a JWT)
@@ -30,6 +30,7 @@ function login(username, password) {
   const authenticatedUser = {
     username,
     token,
+    isAdmin
   };
 
   return authenticatedUser;
@@ -135,7 +136,6 @@ module.exports = {
   readOneUserFromUsername,
   updateStatusUser,
   deleteOneUser,
-  readAllUsers
-  ,
+  readAllUsers,
 };
 

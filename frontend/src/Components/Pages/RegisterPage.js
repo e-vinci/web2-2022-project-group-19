@@ -31,6 +31,10 @@ function renderRegisterForm() {
   submit.value = 'Register';
   submit.type = 'submit';
   submit.className = 'btn btn-danger';
+  const alerts = document.createElement('div')
+  alerts.id = 'alertRegister'
+  form.appendChild(alerts);
+
   form.appendChild(username);
   form.appendChild(password);
   form.appendChild(submit);
@@ -58,13 +62,7 @@ async function onRegister(e) {
   const response = await fetch('/api/auths/register', options);
 
   if (!response.ok) {
-    Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: "Vos données ont déjà été utilisée comme identifiant",
-      showConfirmButton: false,
-      timer: 2000
-    })
+    showErrorRegister();
   }
 
   const authenticatedUser = await response.json();
@@ -77,5 +75,15 @@ async function onRegister(e) {
 
   Navigate('/');
 }
+
+function showErrorRegister() {
+  console.log("alert");
+  const alertDiv = document.getElementById("alertRegister");
+  alertDiv.innerHTML = `<br><div class="alert alert-danger" role="alert">
+                               Ce nom d'utilisateur existe déjà
+                          </div>`;
+  throw new Error("fetch error");
+}
+
 
 export default RegisterPage;

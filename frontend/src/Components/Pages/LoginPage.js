@@ -33,6 +33,9 @@ function renderRegisterForm() {
   submit.className = 'btn btn-info';
 
   const formCheckWrapper = document.createElement('div');
+  const alerts = document.createElement('div')
+  alerts.id = 'alertLogin'
+
   formCheckWrapper.className = 'mb-3 form-check';
 
   const rememberme = document.createElement('input');
@@ -51,12 +54,15 @@ function renderRegisterForm() {
   formCheckWrapper.appendChild(rememberme);
   formCheckWrapper.appendChild(checkLabel);
 
+  form.appendChild(alerts);
+
   form.appendChild(username);
   form.appendChild(password);
   form.appendChild(formCheckWrapper);
   form.appendChild(submit);
   main.appendChild(form);
   form.addEventListener('submit', onLogin);
+
 }
 
 function onCheckboxClicked(e) {
@@ -83,14 +89,10 @@ async function onLogin(e) {
   const response = await fetch(`${process.env.API_BASE_URL}/auths/login`, options);
 
   if (!response.ok) {
-    Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: "Nom d'utilisateur ou mot de passe incorrecte",
-      showConfirmButton: false,
-      timer: 2000
-    })
+    showErrorLogin();
   }
+
+
 
   const authenticatedUser = await response.json();
 
@@ -102,5 +104,16 @@ async function onLogin(e) {
 
   Navigate('/');
 }
+
+function showErrorLogin() {
+  console.log("alert");
+  const alertDiv = document.getElementById("alertLogin");
+  alertDiv.innerHTML = `<br><div class="alert alert-danger" role="alert">
+                               Votre nom d'utilisateur/mot de passe est incorrect
+                          </div>`;
+  throw new Error("fetch error");
+}
+
+
 
 export default LoginPage;

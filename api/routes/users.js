@@ -43,6 +43,7 @@ router.patch('/:id', authorize, (req, res) => {
   )
     return res.sendStatus(400);
 
+
   const updatedUser = updateStatusUser(req?.params?.id, req?.body);
 
   if (!updatedUser) return res.sendStatus(404);
