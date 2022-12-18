@@ -14,3 +14,40 @@
 li {
   list-style: none !important;
 }
+
+
+/* pour l'animation */
+#titre {
+  margin-left: 730px;
+}
+#titre2 {
+  margin-left: 810px;
+}
+#animation {
+  margin-left: 550px;
+}
+
+
+/* pour la page About Us */
+#textAboutUs {
+  text-align: center;
+}
+.ml7 {
+  position: relative;
+  font-weight: 900;
+  font-size: 3.7em;
+  text-align: center;
+}
+.ml7 .text-wrapper {
+  position: relative;
+  display: inline-block;
+  padding-top: 0.2em;
+  padding-right: 0.05em;
+  padding-bottom: 0.1em;
+  overflow: hidden;
+}
+.ml7 .letter {
+  transform-origin: 0 100%;
+  display: inline-block;
+  line-height: 1em;
+}

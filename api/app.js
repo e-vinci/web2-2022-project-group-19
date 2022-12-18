@@ -8,6 +8,7 @@ const charactersRouter = require('./routes/characters');
 const authsRouter = require('./routes/auths');
 const votesRouter = require('./routes/votes');
 const commentsRouter = require('./routes/comments');
+const openaiRouter = require('./routes/openai');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use('/characters', charactersRouter);
 app.use('/auths', authsRouter);
 app.use('/votes', votesRouter);
 app.use('/comments', commentsRouter);
+app.use('/openai', openaiRouter);
 
 
 module.exports = app;

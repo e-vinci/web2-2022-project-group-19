@@ -1,0 +1,79 @@
+import grootImage from "../../img/light(2).png";
+
+const TestPage = () => {
+    const main = document.querySelector('main');
+    main.innerHTML =
+    `<div id="titre">
+    <h3>Welcome to Ultimate Universe</h3>
+    </div>
+    <div id="animation">
+    <canvas id="canvas" width="800" height="200"></canvas>
+    </div>
+    <div id="titre2">
+    <h5>product by Groupe 19</h5>
+    </div>
+    `;   
+
+const img = new Image();
+
+img.src = grootImage;
+
+const canvasXSize = 800;
+const canvasYSize = 200;
+const speed = 30; 
+const scale = 1.05;
+const y = -4.5; 
+
+const dx = 0.75;
+let imgW;
+let imgH;
+let x = 0;
+let clearX;
+let clearY;
+let ctx;
+
+img.onload = () => {
+  imgW = img.width * scale;
+  imgH = img.height * scale;
+
+  if (imgW > canvasXSize) {
+    x = canvasXSize - imgW;
+  }
+
+  clearX = Math.max(imgW, canvasXSize);
+  clearY = Math.max(imgH, canvasYSize);
+
+  ctx = document.getElementById("canvas").getContext("2d");
+
+  return setInterval(draw, speed);
+};
+
+function draw() {
+  ctx.clearRect(0, 0, clearX, clearY); 
+  if (imgW <= canvasXSize) {
+    if (x > canvasXSize) {
+      x = -imgW + x;
+    }
+    if (x > 0) {
+      ctx.drawImage(img, -imgW + x, y, imgW, imgH);
+    }
+    if (x - imgW > 0) {
+      ctx.drawImage(img, -imgW * 2 + x, y, imgW, imgH);
+    }
+  } else {
+    if (x > canvasXSize) {
+      x = canvasXSize - imgW;
+    }
+
+    if (x > canvasXSize - imgW) {
+      ctx.drawImage(img, x - imgW + 1, y, imgW, imgH);
+    }
+  }
+  ctx.drawImage(img, x, y, imgW, imgH);
+
+  x += dx;
+}
+
+};
+
+export default TestPage;
