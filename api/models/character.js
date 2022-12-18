@@ -49,18 +49,7 @@ function filterChararactersByComments() {
   return characters;
 }
 
-// read one character
-function readOneCharacter(id) {
-  const characters = parse(jsonDbPath);
-
-  // eslint-disable-next-line radix
-  const character = characters.find((value) => value.id === parseInt(id));
-  // eslint-disable-next-line no-console
-  console.log("character = ", character);
-
-  return character;
-
-}
+// get next id
 function getNextId() {
   const characters = parse(jsonDbPath);
   let nextId;
@@ -109,7 +98,7 @@ function addOneCharacter(body) {
 }
 
 function search(search) {
-  let charactersList = new Array();
+  const charactersList = new Array();
   let regex = `^.*${search}.*$`.toLowerCase();
   let allCharactersList = parse(jsonDbPath);
   allCharactersList.forEach((character) => {
