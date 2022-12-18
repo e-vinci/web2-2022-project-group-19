@@ -13,21 +13,21 @@ import Navigate from '../Router/Navigate';
 
 
 const addCharacter = async () => {
-    clearPage();
-    renderPageTitle('Create a Character');
-    Navbar();
-    const main = document.querySelector('main');
-    const title = document.createElement('h2');
-    title.className = 'text-center';
-    title.innerHTML = 'Image generator using IA';
-    main.appendChild(title);
-    const instructions = document.createElement('p');
-    instructions.innerHTML =
-        'you can generate images by entering short description of the image, add at the end of your description photo-realistic';
-    main.appendChild(instructions);
+  clearPage();
+  renderPageTitle('Create a Character');
+  Navbar();
+  const main = document.querySelector('main');
+  const title = document.createElement('h2');
+  title.className = 'text-center';
+  title.innerHTML = 'Image generator using IA';
+  main.appendChild(title);
+  const instructions = document.createElement('p');
+  instructions.innerHTML =
+    'you can generate images by entering short description of the image, add at the end of your description photo-realistic';
+  main.appendChild(instructions);
 
-    // form generate image 
-    const formImage = `
+  // form generate image 
+  const formImage = `
   <div class="flex flex-row justify-center">
     <input type="text" id="text" class="form-control" placeholder="A super heros flying…" />
     <button type="button" id="btn" class="btn btn-dark" >
@@ -35,65 +35,65 @@ const addCharacter = async () => {
     </button>
   </div>`;
 
-    main.innerHTML += formImage;
-    const btn = document.getElementById('btn');
-    const text = document.getElementById('text');
+  main.innerHTML += formImage;
+  const btn = document.getElementById('btn');
+  const text = document.getElementById('text');
 
-    // generate image
-    btn.addEventListener('click', async (event) => {
-        event.preventDefault();
+  // generate image
+  btn.addEventListener('click', async (event) => {
+    event.preventDefault();
 
-        try {
-            const options = {
-                method: "POST",
-                body: JSON.stringify({
-                    prompt: text.value
-                }),
-                headers: {
-                    "Content-Type": "application/json",
+    try {
+      const options = {
+        method: "POST",
+        body: JSON.stringify({
+          prompt: text.value
+        }),
+        headers: {
+          "Content-Type": "application/json",
 
-                },
-            };
-            const response = await fetch(`api/openai`, options);
-            if (!response.ok) {
-                throw new Error(
-                    `fetch error : ${response.status} : ${response.statusText}`
-                );
-            }
-        } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error("addCharacter::error: ", error);
-        }
+        },
+      };
+      const response = await fetch(`api/openai`, options);
+      if (!response.ok) {
+        throw new Error(
+          `fetch error : ${response.status} : ${response.statusText}`
+        );
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("addCharacter::error: ", error);
+    }
 
 
-        const generatedImages = await readGeneratedImages();
-        console.log(generatedImages);
-        const img1 = document.createElement('img');
-        img1.className = 'image';
-        // eslint-disable-next-line prefer-destructuring
-        img1.src = generatedImages[0];
-        img1.width = 500;
-        img1.height = 500;
+    const generatedImages = await readGeneratedImages();
+    console.log(generatedImages);
+    const img1 = document.createElement('img');
+    img1.className = 'image';
+    // eslint-disable-next-line prefer-destructuring
+    img1.src = generatedImages[0];
+    img1.width = 500;
+    img1.height = 500;
 
-        const img2 = document.createElement('img');
-        img2.className = 'image';
-        img2.src = generatedImages[1];
-        img2.width = 500;
-        img2.height = 500;
+    const img2 = document.createElement('img');
+    img2.className = 'image';
+    img2.src = generatedImages[1];
+    img2.width = 500;
+    img2.height = 500;
 
-        const img3 = document.createElement('img');
-        img3.className = 'image';
-        img3.src = generatedImages[2];
-        img3.width = 500;
-        img3.height = 500;
+    const img3 = document.createElement('img');
+    img3.className = 'image';
+    img3.src = generatedImages[2];
+    img3.width = 500;
+    img3.height = 500;
 
-        main.appendChild(img1);
-        main.appendChild(img2);
-        main.appendChild(img3);
+    main.appendChild(img1);
+    main.appendChild(img2);
+    main.appendChild(img3);
 
-    });
+  });
 
-    const stringForm = `
+  const stringForm = `
   <div class="text-center">
     <h3>Add a character</h3>
     <form enctype="multipart/form-data"  id="form" method="post" class="px-5" id="form">
@@ -162,57 +162,57 @@ const addCharacter = async () => {
   </div>`;
 
 
-    main.innerHTML += stringForm;
+  main.innerHTML += stringForm;
 
-    const getForm = document.getElementById('form');
-    const imageInput = document.getElementById('image');
-    const imageFile = imageInput.files[0];
-
-
-    getForm.addEventListener('submit', async (event) => {
-        const formData = new FormData();
-        formData.append('name', document.querySelector('#name').value)
-        formData.append('slug', document.querySelector('#slug').value)
-        formData.append('intelligence', document.querySelector('#intelligence').value)
-        formData.append('strength', document.querySelector('#strength').value)
-        formData.append('speed', document.querySelector('#speed').value)
-        formData.append('durability', document.querySelector('#durability').value)
-        formData.append('power', document.querySelector('#power').value)
-        formData.append('combat', document.querySelector('#combat').value)
-        formData.append('genre', document.querySelector('#genre').value)
-        formData.append('race', document.querySelector('#race').value)
-        formData.append('height', document.querySelector('#height').value)
-        formData.append('weight', document.querySelector('#weight').value)
-        formData.append('image', document.querySelector('#image').files[0])
+  const getForm = document.getElementById('form');
+  const imageInput = document.getElementById('image');
+  const imageFile = imageInput.files[0];
 
 
-        event.preventDefault();
-        // formData.append('image', imageFile);
-
-        try {
-            const options = {
-                method: "POST",
-                body: formData
-            };
-            console.log(options);
-            const response = await fetch(`api/characters/addCharacter`, options);
-            console.log(response);
-            if (!response.ok) {
-                throw new Error(
-                    `fetch error : ${response.status} : ${response.statusText}`
-                );
-            }
-            Navigate('/');
-        } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error("addCharacter::error: ", error);
-        }
+  getForm.addEventListener('submit', async (event) => {
+    const formData = new FormData();
+    formData.append('name', document.querySelector('#name').value)
+    formData.append('slug', document.querySelector('#slug').value)
+    formData.append('intelligence', document.querySelector('#intelligence').value)
+    formData.append('strength', document.querySelector('#strength').value)
+    formData.append('speed', document.querySelector('#speed').value)
+    formData.append('durability', document.querySelector('#durability').value)
+    formData.append('power', document.querySelector('#power').value)
+    formData.append('combat', document.querySelector('#combat').value)
+    formData.append('genre', document.querySelector('#genre').value)
+    formData.append('race', document.querySelector('#race').value)
+    formData.append('height', document.querySelector('#height').value)
+    formData.append('weight', document.querySelector('#weight').value)
+    formData.append('image', document.querySelector('#image').files[0])
 
 
+    event.preventDefault();
+    // formData.append('image', imageFile);
+
+    try {
+      const options = {
+        method: "POST",
+        body: formData
+      };
+      console.log(options);
+      const response = await fetch(`api/characters/addCharacter`, options);
+      console.log(response);
+      if (!response.ok) {
+        throw new Error(
+          `fetch error : ${response.status} : ${response.statusText}`
+        );
+      }
+      Navigate('/');
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("addCharacter::error: ", error);
+    }
 
 
 
-    });
+
+
+  });
 
 
 };
