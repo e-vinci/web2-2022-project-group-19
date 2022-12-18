@@ -5,6 +5,8 @@ import ProfilePage from '../Pages/ProfilePage';
 import HomePage from '../Pages/HomePage';
 import OneCharacterPage from '../Pages/OneCharacterPage';
 import AddCharacterPage from '../Pages/AddCharacterPage';
+import MembrePage from '../Pages/MembrePage';
+
 
 const routes = {
   '/': HomePage,
@@ -14,6 +16,7 @@ const routes = {
   '/profile': ProfilePage,
   '/OneCharacterPage': OneCharacterPage,
   '/addCharacter': AddCharacterPage,
+  '/member': MembrePage,
 };
 
 export default routes;

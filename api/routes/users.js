@@ -1,20 +1,25 @@
 const express = require('express');
 const { readOneUserFromID } = require('../models/users');
+const { authorize } = require('../utils/auths');
 
 const router = express.Router();
 
 
 const {
+  readAllUsers,
   updateOne,
   updatePassword,
+  deleteOneUser,
+  updateStatusUser,
+
 
 } = require('../models/users');
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-  res.json({ users: [{ name: 'e-baron' }] });
+  const users = readAllUsers();
+  return res.json(users);
 });
-
 
 router.put('/updateUsername/:username', async function (req, res) {
   // return res.json(req.body)
@@ -34,6 +39,34 @@ router.put('/updatePassword/:username', async function (req, res) {
   console.log("user uaha" + userData)
   if (!userData) return res.sendStatus(401);
   return res.json(userData);
+});
+
+router.delete('/:id', authorize, (req, res) => {
+  const deletedUser = deleteOneUser(req?.params?.id);
+
+  if (!deletedUser) return res.sendStatus(404);
+
+  return res.json(deletedUser);
+});
+
+// Update a status of user identified by its id
+router.patch('/:id', authorize, (req, res) => {
+  const status = req?.body?.status;
+
+
+  if (
+    !req.body ||
+    (status && !status.trim())
+
+  )
+    return res.sendStatus(400);
+
+
+  const updatedUser = updateStatusUser(req?.params?.id, req?.body);
+
+  if (!updatedUser) return res.sendStatus(404);
+
+  return res.json(updatedUser);
 });
 
 

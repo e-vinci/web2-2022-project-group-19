@@ -14,11 +14,14 @@ const defaultUsers = [
     id: 1,
     username: 'admin',
     password: 'admin',
+    isAdmin: true,
   },
 ];
 
 function login(username, password) {
   const userFound = readOneUserFromUsername(username);
+  let isAdmin = userFound?.isAdmin ? true : false;
+
   if (!userFound) return undefined;
   if (userFound.password !== password) return undefined;
 
@@ -32,6 +35,7 @@ function login(username, password) {
     id: userFound.id,
     username,
     token,
+    isAdmin,
   };
 
   return authenticatedUser;
@@ -40,6 +44,7 @@ function login(username, password) {
 function register(username, password) {
   const userFound = readOneUserFromUsername(username);
   if (userFound) return undefined;
+  let isAdmin = userFound?.isAdmin ? true : false;
 
   createOneUser(username, password);
 
@@ -52,6 +57,7 @@ function register(username, password) {
   const authenticatedUser = {
     username,
     token,
+    isAdmin,
   };
 
   return authenticatedUser;
@@ -148,12 +154,53 @@ async function updatePassword(username, body) {
 
 }
 
+function deleteOneUser(id) {
+  const idAsNumber = parseInt(id, 10);
+  const users = parse(jsonDbPath);
+  const foundIndex = users.findIndex((user) => user.id === idAsNumber);
+  if (foundIndex < 0) return undefined;
+  const deletedUsers = users.splice(foundIndex, 1);
+  const deletedUser = deletedUsers[0];
+  serialize(jsonDbPath, users);
+
+  return deletedUser;
+}
+
+
+function updateStatusUser(id, propertiesToUpdate) {
+  const usersPropertiesToBeUpdated = { ...propertiesToUpdate };
+  const idAsNumber = parseInt(id, 10);
+  const users = parse(jsonDbPath);
+  const foundIndex = users.findIndex((user) => user.id === idAsNumber);
+  if (foundIndex < 0) return undefined;
+
+  if (usersPropertiesToBeUpdated?.status)
+    usersPropertiesToBeUpdated.status = escape(propertiesToUpdate.title);
+
+  const updatedUser = { ...users[foundIndex], ...usersPropertiesToBeUpdated };
+
+  users[foundIndex] = updatedUser;
+
+  serialize(jsonDbPath, users);
+
+  return updatedUser;
+}
+
+function readAllUsers() {
+  const users = parse(jsonDbPath);
+
+  return users;
+}
 module.exports = {
   login,
   register,
   readOneUserFromUsername,
   updateOne,
   updatePassword,
+  deleteOneUser,
+  updateStatusUser,
   readOneUserFromID,
+  readAllUsers,
+
 };
 

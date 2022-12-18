@@ -26,7 +26,7 @@ const readOneCharacter = async (id) => {
     }
     const character = await response.json();
     return character;
-  } catch (err){
+  } catch (err) {
     // eslint-disable-next-line no-console
     console.error('readOneCharacter::error: ', err);
     throw err;
@@ -67,5 +67,21 @@ const filterChararactersByComments = async () => {
     throw err;
   }
 }
+
+const searchCharacters = async (search) => {
+  try {
+    const response = await fetch('/api/characters/' + search);
+
+    if (!response.ok) {
+      throw new Error(`readAllMovies:: fetch error : ${response.status} : ${response.statusText}`);
+    }
+    const characters = await response.json();
+    return characters;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('readAllMovies::error: ', err);
+    throw err;
+  }
+};
 // eslint-disable-next-line import/prefer-default-export
-export { readAllCharacters, readOneCharacter, filterCharactersByVotes, filterChararactersByComments };
+export { readAllCharacters, readOneCharacter, filterCharactersByVotes, filterChararactersByComments, searchCharacters };
