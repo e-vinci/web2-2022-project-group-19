@@ -84,7 +84,7 @@ function renderNavbar() {
           <a class="nav-link  btn btn-outline-light rounded-pill px-4" href="#" data-uri="/logout">Logout</a>
           </li>    
             <li class="nav-item px-5">
-            <a class="nav-link  btn btn-outline-light rounded-pill px-4" href="#" data-uri="/admin">${authenticatedUser?.username}</a>
+            <a class="nav-link  btn btn-outline-light rounded-pill px-4" href="#" >${authenticatedUser?.username}</a>
             </li>           
           </ul>
         </div>

@@ -19,10 +19,10 @@ router.get('/', (req, res) => {
 });
 
 // Read one character
-// router.get('/:id', (req, res) => {
-//   const foundCharacter = readOneCharacter(req.params.id);
-//   return res.json(foundCharacter);
-// });
+router.get('/:id', (req, res) => {
+  const foundCharacter = readOneCharacter(req.params.id);
+  return res.json(foundCharacter);
+});
 
 router.get('/filterCharacters/votes', (req, res) => {
   const characters = filterCharactersByVotes();
@@ -34,7 +34,7 @@ router.get('/filterCharacters/comments', (req, res) => {
   return res.json(characters);
 })
 
-router.get("/:search", function (req, res) {
+router.get("/search/:search", function (req, res) {
   const characters = search(req.params.search);
 
   return res.json(characters);

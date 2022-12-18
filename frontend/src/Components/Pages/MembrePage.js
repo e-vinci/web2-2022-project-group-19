@@ -1,8 +1,4 @@
-// const path = require('node:path');
-// const { parse } = require('../../../../api/utils/json.js');
-/* eslint-disable no-plusplus */
-import { clearPage, renderPageTitle } from '../../utils/render';
-import Navbar from '../Navbar/Navbar';
+
 import { readAllUsers, updateOneUser, deleteOneUser } from '../../models/users';
 import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
 
@@ -19,12 +15,6 @@ const MemberPage = async () => {
     <div class="container col-6 mt-5">
 
     <form action="" method="post">
-
-
-        <div class="row d-flex justify-content-end mx-1">
-            <input type="submit" class="btn btn-primary text-white w-25" value="Save changes">
-        </div>
-
         <table class="table mt-5 text-center bg-white">
             <thead>
                 <tr>
@@ -47,21 +37,11 @@ const MemberPage = async () => {
             <td><button class="buttonDelete" type="button" class="btn btn-info delete" data-user-id="${user.id}">Delete</button></td>
             <td><button class="buttonUpdate" type="button" class="btn btn-info update" data-user-id="${user.id}">Save</button></td>
 
-          
-                
-            
-      
-    </tr >
-
-
-    `
+    </tr >`
     });
     table += `</tbody >
-
         </table >
-
     </form >
-
 </div >
 
     `
@@ -75,7 +55,6 @@ const MemberPage = async () => {
 
             const options = {
                 method: 'DELETE',
-
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': authenticatedUser.token,
@@ -125,63 +104,7 @@ const MemberPage = async () => {
         });
     })
 
-
-
-    //     let content = '';
-    //    users.forEach(user => {
-    //         content += `
-    //         <tr>
-    //       <td class="fw-bold text-info" ${authenticated ? 'contenteditable="true"' : ''}>${user.username}</td>
-
-    //        <td class="fw-bold text-info" ${authenticated ? 'contenteditable="true"' : ''}>${user.email}</td>
-
-
-    //       <td class="text-info" ${authenticated ? 'contenteditable="true"' : ''}>${user.isAdmin}</td>
-    //       ${authenticated
-    //                 ? `<td><button type="button" class="btn btn-info delete" data-element-id="${user.id}">Delete</button></td>
-    //           <td><button type="button" class="btn btn-info update" data-element-id="${user.id}">Save</button></td>`
-    //                 : ''
-    //             }
-
-    //     </tr>
-
-
-    //         `
-    //     });
-    //     tableContent.innerHTML = content;
-    //     tableContent.appendChildµ
-    //  attachEventListeners();
-
-    console.log(users);
-
+    //console.log(users);
 };
-
-// function attachEventListeners() {
-//     const userTable = document.querySelector('#table-content');
-
-//     userTable.querySelectorAll('.delete').forEach((button) => {
-//         button.addEventListener('click', async (e) => {
-//             const { elementId } = e.target.dataset;
-//             await deleteOneUser(elementId);
-//             MemberPage();
-//         });
-//     });
-
-//     userTable.querySelectorAll('.update').forEach((button) => {
-//         button.addEventListener('click', async (e) => {
-//             const { elementId } = e.target.dataset;
-
-//             const UserRow = e.target.parentElement.parentElement;
-//             const newUser = {
-//                 title: UserRow.children[0].innerText,
-
-//             };
-//             await updateOneUser(elementId, newUser);
-//             MemberPage();
-//         });
-//     });
-// }
-
-
 
 export default MemberPage;

@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const { parse, serialize } = require('../utils/json');
 const escape = require('escape-html');
 
+const saltRounds = 10;
+
 
 
 const jwtSecret = 'ilovemypizza!';
@@ -15,17 +17,21 @@ const defaultUsers = [
   {
     id: 1,
     username: 'admin',
-    password: 'admin',
+    password: bcrypt.hashSync('admin', saltRounds),
     isAdmin: true,
   },
 ];
 
-function login(username, password) {
+async function login(username, password) {
   const userFound = readOneUserFromUsername(username);
   let isAdmin = userFound?.isAdmin ? true : false;
 
   if (!userFound) return undefined;
-  if (userFound.password !== password) return undefined;
+  // if (userFound.password !== password) return undefined;
+
+  const passwordMatch = await bcrypt.compare(password, userFound.password);
+  console.log(passwordMatch)
+  if (!passwordMatch) return undefined;
 
   const token = jwt.sign(
     { username }, // session data added to the payload (payload : part 2 of a JWT)
@@ -80,13 +86,14 @@ function readOneUserFromID(id) {
   return user?.username;
 }
 
-function createOneUser(username, password) {
+async function createOneUser(username, password) {
   const users = parse(jsonDbPath, defaultUsers);
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
 
   const createdUser = {
     id: getNextId(),
     username,
-    password,
+    password: hashedPassword,
   };
 
   users.push(createdUser);

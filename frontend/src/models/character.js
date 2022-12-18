@@ -19,8 +19,9 @@ const readAllCharacters = async () => {
 // call the function to recover one character from the api
 const readOneCharacter = async (id) => {
   if (!id) return undefined;
+
   try {
-    const response = await fetch(`/api/characters/${id}`);
+    const response = await fetch(`${process.env.API_BASE_URL}/characters/${id}`);
     if (!response.ok) {
       throw new Error(`readOneCharacter:: fetch error : ${response.status} : ${response.statusText}`);
     }
@@ -70,7 +71,7 @@ const filterChararactersByComments = async () => {
 
 const searchCharacters = async (search) => {
   try {
-    const response = await fetch('/api/characters/' + search);
+    const response = await fetch('/api/characters/search/' + search);
 
     if (!response.ok) {
       throw new Error(`readAllMovies:: fetch error : ${response.status} : ${response.statusText}`);

@@ -155,6 +155,5 @@ const HomePage = async () => {
   }
 };
 
-// pour push
 
 export default HomePage;

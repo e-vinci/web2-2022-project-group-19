@@ -28,11 +28,11 @@ const ProfilePage = async () => {
         <div class="row">
 
             <div class="col mt-5 pt-5">
-                 <p class="pProfilePage fs-2 helloProfile text-danger"> Couucou ${userData?.username} </p>
+                 <p class="pProfilePage fs-2 helloProfile text-danger"> Hello ${userData?.username} </p>
               
              </div>
         </div>
-        <p class="text-center fs-3 pProfilePage"> Ici tu peux modifier ton pseudo ou ton mot de passe</p>
+        <p class="text-center fs-3 pProfilePage">Here you can change your username or password</p>
         <div class="row">
         <div class="col text-center">
         <button id="userName" class="fs-6 pProfilePage" >Modifier le pseuso</button> 
