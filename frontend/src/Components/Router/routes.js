@@ -11,7 +11,7 @@ const routes = {
   '/login': LoginPage,
   '/register': RegisterPage,
   '/logout': Logout,
-  '/user' : UserPage,
+  '/user' : ProfilePage,
   '/OneCharacterPage': OneCharacterPage,
   '/addCharacter' : AddCharacterPage,
 };

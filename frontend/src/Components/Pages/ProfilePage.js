@@ -1,4 +1,7 @@
-import { getAuthenticatedUser, setAuthenticatedUser } from "./../../utils/auths";
+/* eslint-disable no-unused-vars */
+/* eslint-disable object-shorthand */
+import { getAuthenticatedUser, setAuthenticatedUser } from "../../utils/auths";
+
 import Navigate from '../Router/Navigate';
 
 const ProfilePage = async () => {
@@ -7,15 +10,18 @@ const ProfilePage = async () => {
     // console.log(pageDiv);
 
     // pageDiv.innerHTML = "";
-    //get authentificated user data 
+
+    // get authentificated user data 
+
     const userData = getAuthenticatedUser("user");
 
-    let userName = userData?.username;
+    const userName = userData?.username;
+    // eslint-disable-next-line no-console
     console.log(userName);
 
 
-    //the main content of the profil page
-    let content = `
+    // the main content of the profil page
+    const content = `
     <div class="container-profil "> 
     
    
@@ -46,24 +52,25 @@ const ProfilePage = async () => {
     main.innerHTML = content;
 
 
-    //welcome message
-    let text = document.querySelector(".helloProfile");
-    //separate every single letter of the messege  in a span tag to animate it later 
+    // welcome message
+    const text = document.querySelector(".helloProfile");
+    // separate every single letter of the messege  in a span tag to animate it later 
     text.innerHTML = text.innerText
         .split("")
+        // eslint-disable-next-line prefer-arrow-callback
         .map(function (char) {
             return `<span class="fs-2 text-danger pProfilePage ">${char}</span>`;
         })
         .join("");
 
-    //Change username
+    // Change username
     const changeUserNameDiv = document.getElementById("ChangeUserName");
-    //use the button in purpose to display the form only if the user clicks on it 
+    // use the button in purpose to display the form only if the user clicks on it 
     const buttonChangeUserName = document.getElementById("userName");
     buttonChangeUserName.addEventListener("click", displayUpdateUsernameForm);
     function displayUpdateUsernameForm(e) {
         e.preventDefault();
-        let changeUserNameForm = `
+        const changeUserNameForm = `
     <form id="changeUserNameForm">
         <input type="text" id="nUserName" required="required" placeHolder="Nouveau nom d'utilisateur">
         <input type="submit" id="submitUsername" value="Changer">
@@ -72,7 +79,7 @@ const ProfilePage = async () => {
     `;
         changeUserNameDiv.innerHTML = changeUserNameForm;
         const updateUsernameForm = document.getElementById("changeUserNameForm");
-        //Add an event listener to the form on submit
+        // Add an event listener to the form on submit
         updateUsernameForm.addEventListener("submit", ChangeUsername);
     }
     // on submit , a request is sent to our api to change the username
@@ -80,7 +87,8 @@ const ProfilePage = async () => {
         e.preventDefault();
         const nUserName = document.getElementById("nUserName").value;
         const username = getAuthenticatedUser("user")?.username;
-        console.log("hhhhhhhhhhhhhhhhhh" + username);
+        // eslint-disable-next-line no-console
+        console.log(`hhhhhhhhhhhhhhhhhh${  username}`);
         const options = {
             method: "PUT",
             body: JSON.stringify({
@@ -92,21 +100,21 @@ const ProfilePage = async () => {
             },
         };
 
-        const response = await fetch(`${process.env.API_BASE_URL}/users/updateUsername/` + username, options);
+        const response = await fetch(`${process.env.API_BASE_URL}/users/updateUsername/${  username}`, options);
         if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
         const authenticatedUser = await response.json();
         setAuthenticatedUser(authenticatedUser);
 
     }
-    //Change password 
+    // Change password 
     const changePasswordDiv = document.getElementById("ChangePassword");
-    //A button to display password changing form 
+    // A button to display password changing form 
     const buttonChangePassword = document.getElementById("password");
     buttonChangePassword.addEventListener("click", displayUpdatePasswordForm);
-    //display a form to change the password and adding an event listener on it 
+    // display a form to change the password and adding an event listener on it 
     function displayUpdatePasswordForm(e) {
         e.preventDefault();
-        let changePasswordForm = `
+        const changePasswordForm = `
     <form id="changePasswordForm">
         <input type="password" id="oldPassword" required="required" placeHolder="Ancien mot de passe">
         <input type="password" id="newPassword" required="required" placeHolder="Nouveau mot de passe">
@@ -118,7 +126,7 @@ const ProfilePage = async () => {
         const updatePasswordForm = document.getElementById("changePasswordForm");
         updatePasswordForm.addEventListener("submit", changePassword);
     }
-    //On submit a request is sent to the api using 
+    // On submit a request is sent to the api using 
     async function changePassword(e) {
         e.preventDefault();
         const nPassword = document.getElementById("newPassword").value;
@@ -135,7 +143,7 @@ const ProfilePage = async () => {
                 "Content-type": "application/json",
             },
         };
-        const response = await fetch(`${process.env.API_BASE_URL}/users/updatePassword/` + username, options);
+        const response = await fetch(`${process.env.API_BASE_URL}/users/updatePassword/${  username}`, options);
         if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
         const authenticatedUser = await response.json();
         setAuthenticatedUser(authenticatedUser);
@@ -144,7 +152,7 @@ const ProfilePage = async () => {
 
     }
 
-    //display an alert box and throw an error if the fetch failed 
+    // display an alert box and throw an error if the fetch failed 
     function showErrorPwd() {
         const alertDiv = document.getElementById("alertUpdatePwd");
         alertDiv.innerHTML = `<br><div class="alert alert-danger" role="alert">
