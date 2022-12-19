@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 // call the function to recover the characters from the api
 const dotenv = require ('dotenv');
+
 dotenv.config();
 
 const readAllCharacters = async () => {
