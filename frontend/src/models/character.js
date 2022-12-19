@@ -1,5 +1,8 @@
 /* eslint-disable no-console */
 // call the function to recover the characters from the api
+const dotenv = require ('dotenv');
+dotenv.config();
+
 const readAllCharacters = async () => {
   try {
     const response = await fetch(`${process.env.API_BASE_URL}/characters`);
@@ -72,7 +75,7 @@ const filterChararactersByComments = async () => {
 const searchCharacters = async (search) => {
   try {
     // eslint-disable-next-line prefer-template
-    const response = await fetch(`${process.env.API_BASE_URL}/characters/search/` , search);
+    const response = await fetch(`${process.env.API_BASE_URL}/characters/search/`, search);
 
     if (!response.ok) {
       throw new Error(`readAllMovies:: fetch error : ${response.status} : ${response.statusText}`);
