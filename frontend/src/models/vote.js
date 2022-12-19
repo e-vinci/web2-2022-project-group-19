@@ -1,6 +1,7 @@
 // import { setSessionObject } from "../utils/session";
 
 const submitVote = async (idcharacter, iduser, valuevote) => {
+    const error = "erreur";
     if(!idcharacter || !iduser || !valuevote) return undefined; 
     try {
         const options = {
