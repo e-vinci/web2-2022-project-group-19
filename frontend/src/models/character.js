@@ -11,6 +11,7 @@ const readAllCharacters = async () => {
     return characters;
   } catch (err) {
     // eslint-disable-next-line no-console
+    console.error('readAllMovies::error: ', err);
     throw err;
   }
 };
@@ -28,6 +29,7 @@ const readOneCharacter = async (id) => {
     return character;
   } catch (err) {
     // eslint-disable-next-line no-console
+    console.error('readOneCharacter::error: ', err);
     throw err;
   }
 }
@@ -45,6 +47,7 @@ const filterCharactersByVotes = async () => {
     return characters;
   } catch (err) {
     // eslint-disable-next-line no-console
+    console.error('filterCharactersByVotes::error: ', err);
     throw err;
   }
 }
@@ -61,6 +64,7 @@ const filterChararactersByComments = async () => {
     return characters;
   } catch (err) {
     // eslint-disable-next-line no-console
+    console.error('filterCharactersByComments::error: ', err);
     throw err;
   }
 }
@@ -77,6 +81,7 @@ const searchCharacters = async (search) => {
     return characters;
   } catch (err) {
     // eslint-disable-next-line no-console
+    console.error('readAllMovies::error: ', err);
     throw err;
   }
 };

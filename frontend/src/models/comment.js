@@ -22,6 +22,7 @@ const postComment = async (idcharacter, iduser, commentValue) => {
         const comment = await response.json();
         return comment;
     } catch (error) {
+        console.error('postComment::error:', error);
         throw error;
     }
 }
@@ -41,6 +42,7 @@ const getComments = async (idCharacter) => {
         return comments;
 
     } catch (error) {
+        console.error('getComments::error', error);
         throw error;
     }
 }
@@ -68,6 +70,7 @@ const likeAComment = async (idcomment, iduser) => {
         return comments;
 
     } catch (error) {
+        console.error('likeAComment::error', error);
         throw error;
     }
 }
@@ -86,6 +89,7 @@ const filterCommentsByLikes = async (idCharacter) => {
         return comments;
 
     } catch (error) {
+        console.error('likeAComment::error', error);
         throw error;
     }
 }
@@ -113,6 +117,7 @@ const alreadyLikedComment = async (idcomment, iduser) => {
         return boolean;
 
     } catch (error) {
+        console.error('alreadyLikedComment::error', error);
         throw error;
     }
 }

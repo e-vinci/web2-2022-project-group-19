@@ -1,7 +1,6 @@
 // import { setSessionObject } from "../utils/session";
 
 const submitVote = async (idcharacter, iduser, valuevote) => {
-    const error = "erreur";
     if(!idcharacter || !iduser || !valuevote) return undefined; 
     try {
         const options = {
@@ -23,7 +22,8 @@ const submitVote = async (idcharacter, iduser, valuevote) => {
         }
         const vote = await response.json();
         return vote; 
-    } catch (error) { 
+    } catch (error) {
+     console.error('submitVote::error:', error);   
      throw error;
     }
 }
@@ -52,7 +52,8 @@ const alreadyVoted = async (idcharacter, iduser) => {
 
         return bool; 
 
-    } catch (error) {  
+    } catch (error) {
+        console.error('alreadyVoted::error:', error);   
         throw error; 
     }
 
@@ -73,6 +74,7 @@ const getAverageVotes = async (idCharacter) => {
         return averageVotes;
 
     } catch (error) {
+        console.error('getAverageVotes::error', error);
         throw error;
     }   
 }
