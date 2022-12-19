@@ -11,7 +11,6 @@ const readAllUsers = async () => {
         return users;
     } catch (err) {
         // eslint-disable-next-line no-console
-        console.error('readAllUsers::error: ', err);
         throw err;
     }
 };
@@ -38,7 +37,6 @@ async function deleteOneUser(id) {
         const deletedUser = await response.json();
         return deletedUser;
     } catch (err) {
-        console.error('deleteOneFilm::error: ', err);
         throw err;
     }
 }
@@ -69,7 +67,6 @@ async function updateOneUser(id, newUser) {
 
         return updatedUser;
     } catch (err) {
-        console.error('updateOneUser::error: ', err);
         throw err;
     }
 }

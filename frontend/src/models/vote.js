@@ -22,8 +22,7 @@ const submitVote = async (idcharacter, iduser, valuevote) => {
         }
         const vote = await response.json();
         return vote; 
-    } catch (error) {
-     console.error('submitVote::error:', error);   
+    } catch (error) { 
      throw error;
     }
 }
@@ -52,8 +51,7 @@ const alreadyVoted = async (idcharacter, iduser) => {
 
         return bool; 
 
-    } catch (error) {
-        console.error('alreadyVoted::error:', error);   
+    } catch (error) {  
         throw error; 
     }
 
@@ -74,7 +72,6 @@ const getAverageVotes = async (idCharacter) => {
         return averageVotes;
 
     } catch (error) {
-        console.error('getAverageVotes::error', error);
         throw error;
     }   
 }
