@@ -3,7 +3,7 @@
 
 const readAllCharacters = async () => {
   try {
-    const response = await fetch(`${process.env.API_BASE_URL}/characters`);
+    const response = await fetch(`/api/characters`);
 
     if (!response.ok) {
       throw new Error(`readAllMovies:: fetch error : ${response.status} : ${response.statusText}`);
