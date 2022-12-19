@@ -30,6 +30,4 @@ app.use('/comments', commentsRouter);
 app.use('/openai', openaiRouter);
 
 
-
-
 module.exports = app;
