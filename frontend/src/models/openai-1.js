@@ -2,7 +2,7 @@
 const readGeneratedImages = async () => {
     
   try {
-    const response = await fetch(`/api/openai/images`);
+    const response = await fetch(`${process.env.API_BASE_URL}/openai/images`);
     console.log(response);
     if (!response.ok) {
       throw new Error(

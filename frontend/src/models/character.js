@@ -2,7 +2,7 @@
 // call the function to recover the characters from the api
 const readAllCharacters = async () => {
   try {
-    const response = await fetch('/api/characters');
+    const response = await fetch(`${process.env.API_BASE_URL}/characters`);
 
     if (!response.ok) {
       throw new Error(`readAllMovies:: fetch error : ${response.status} : ${response.statusText}`);
@@ -36,7 +36,7 @@ const readOneCharacter = async (id) => {
 
 const filterCharactersByVotes = async () => {
   try {
-    const response = await fetch('/api/characters/filterCharacters/votes');
+    const response = await fetch(`${process.env.API_BASE_URL}/characters/filterCharacters/votes`);
 
     if (!response.ok) {
       throw new Error(`filterCharactersByVotes:: fetch error : ${response.status} : ${response.statusText}`);
@@ -54,7 +54,7 @@ const filterCharactersByVotes = async () => {
 
 const filterChararactersByComments = async () => {
   try {
-    const response = await fetch('/api/characters/filterCharacters/comments');
+    const response = await fetch(`${process.env.API_BASE_URL}/characters/filterCharacters/comments`);
 
     if (!response.ok) {
       throw new Error(`filterCharactersByComments:: fetch error : ${response.status} : ${response.statusText}`);
@@ -72,7 +72,7 @@ const filterChararactersByComments = async () => {
 const searchCharacters = async (search) => {
   try {
     // eslint-disable-next-line prefer-template
-    const response = await fetch('/api/characters/search/' + search);
+    const response = await fetch(`${process.env.API_BASE_URL}/characters/search/' + search`);
 
     if (!response.ok) {
       throw new Error(`readAllMovies:: fetch error : ${response.status} : ${response.statusText}`);

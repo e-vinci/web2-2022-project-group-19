@@ -2,7 +2,7 @@ import { getAuthenticatedUser } from "../utils/auths";
 
 const readAllUsers = async () => {
     try {
-        const response = await fetch('/api/users');
+        const response = await fetch(`${process.env.API_BASE_URL}/users`);
 
         if (!response.ok) {
             throw new Error(`readAllYsers:: fetch error : ${response.status} : ${response.statusText}`);
@@ -30,7 +30,7 @@ async function deleteOneUser(id) {
             },
         };
 
-        const response = await fetch(`/api/users/${id}`, options);
+        const response = await fetch(`${process.env.API_BASE_URL}/users/${id}`, options);
 
         if (!response.ok) {
             throw new Error(`deleteOneUser :: fetch error : ${response.status} : ${response.statusText}`);
@@ -58,7 +58,7 @@ async function updateOneUser(id, newUser) {
             },
         };
 
-        const response = await fetch(`/api/users/${id}`, options); // fetch return a promise => we wait for the response
+        const response = await fetch(`${process.env.API_BASE_URL}/users/${id}`, options); // fetch return a promise => we wait for the response
 
         if (!response.ok) {
             throw new Error(

@@ -15,7 +15,7 @@ const submitVote = async (idcharacter, iduser, valuevote) => {
             },
         };
 
-        const response = await fetch('/api/votes/submitVote', options);
+        const response = await fetch(`${process.env.API_BASE_URL}/votes/submitVote`, options);
         
         if(!response.ok){
             throw new Error(`vote : fetch error : ${response.status} : ${response.statusText}`);
@@ -42,7 +42,7 @@ const alreadyVoted = async (idcharacter, iduser) => {
             }, 
         };
 
-        const response = await fetch('/api/votes/alreadyVoted', options);
+        const response = await fetch(`${process.env.API_BASE_URL}/votes/alreadyVoted`, options);
         
         if(!response.ok){
             throw new Error(`alreadyVoted : fetch error : ${response.status} : ${response.statusText}`);
@@ -64,7 +64,7 @@ const getAverageVotes = async (idCharacter) => {
     if(!idCharacter) return undefined;
     try {
 
-        const response = await fetch(`/api/votes/getAverageVotes/${idCharacter}`);
+        const response = await fetch(`${process.env.API_BASE_URL}/votes/getAverageVotes/${idCharacter}`);
 
         if(!response.ok){
             throw new Error(`getAverageVotes : fetch error : ${response.status} : ${response.statusText}`);

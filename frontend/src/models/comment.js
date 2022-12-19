@@ -13,7 +13,7 @@ const postComment = async (idcharacter, iduser, commentValue) => {
                 'Content-Type': 'application/json',
             },
         };
-        const response = await fetch('/api/comments/postComment', options);
+        const response = await fetch(`${process.env.API_BASE_URL}/comments/postComment', options`);
 
         if (!response.ok) {
             throw new Error(`postComment : fetch error : ${response.status} : ${response.statusText}`);
@@ -32,7 +32,7 @@ const getComments = async (idCharacter) => {
     if (!idCharacter) return undefined;
     try {
 
-        const response = await fetch(`/api/comments/getComments/${idCharacter}`);
+        const response = await fetch(`${process.env.API_BASE_URL}/comments/getComments/${idCharacter}`);
 
         if (!response.ok) {
             throw new Error(`getComments : fetch error : ${response.status} : ${response.statusText}`);
@@ -60,7 +60,7 @@ const likeAComment = async (idcomment, iduser) => {
                 'Content-Type': 'application/json',
             },
         };
-        const response = await fetch(`/api/comments/likeAComment`, options);
+        const response = await fetch(`${process.env.API_BASE_URL}/comments/likeAComment`, options);
 
         if (!response.ok) {
             throw new Error(`likeAComment : fetch error : ${response.status} : ${response.statusText}`);
@@ -79,7 +79,7 @@ const filterCommentsByLikes = async (idCharacter) => {
     if (!idCharacter) return undefined;
     try {
 
-        const response = await fetch(`/api/comments/filterCommentsByLikes/${idCharacter}`);
+        const response = await fetch(`${process.env.API_BASE_URL}/comments/filterCommentsByLikes/${idCharacter}`);
 
         if (!response.ok) {
             throw new Error(`likeAComment : fetch error : ${response.status} : ${response.statusText}`);

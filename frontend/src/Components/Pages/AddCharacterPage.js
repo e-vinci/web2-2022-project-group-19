@@ -55,7 +55,7 @@ const addCharacter = async () => {
 
         },
       };
-      const response = await fetch(`api/openai`, options);
+      const response = await fetch(`${process.env.API_BASE_URL}/openai`, options);
       if (!response.ok) {
         throw new Error(
           `fetch error : ${response.status} : ${response.statusText}`
@@ -193,7 +193,7 @@ const addCharacter = async () => {
         body: formData
       };
       console.log(options);
-      const response = await fetch(`api/characters/addCharacter`, options);
+      const response = await fetch(`${process.env.API_BASE_URL}/characters/addCharacter`, options);
       console.log(response);
       if (!response.ok) {
         throw new Error(
